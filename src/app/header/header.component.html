@@ -1,4 +1,4 @@
-<mat-toolbar>
+<!-- <mat-toolbar>
   <span><a routerLink="/">TMS</a></span>
   <span class="spacer"></span>
   <ul>
@@ -11,6 +11,21 @@
       <a mat-button routerLink="/managerLogin" routerLinkActive="mat-accent"
         >Manager Login</a
       >
+    </li>
+  </ul>
+</mat-toolbar> -->
+
+<mat-toolbar>
+  <span><a routerLink="/">TMS</a></span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">
+        Logout
+      </button>
     </li>
   </ul>
 </mat-toolbar>

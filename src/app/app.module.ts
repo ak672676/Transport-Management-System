@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
   MatInputModule,
@@ -11,6 +11,8 @@ import {
   MatExpansionModule,
   MatProgressSpinnerModule
 } from "@angular/material";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSelectModule } from "@angular/material/select";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -23,7 +25,7 @@ import { ManagerListComponent } from "./managers/manager-list/manager-list.compo
 import { DriverCreateComponent } from "./drivers/driver-create/driver-create.component";
 import { TruckCreateComponent } from "./truck/truck-create/truck-create.component";
 import { AdminLoginComponent } from "./login/admin-login/admin-login.component";
-import { ManagerLoginComponent } from "./login/manager-login/manager-login.component";
+import { ManagerLoginComponent } from "./managers/manager-login/manager-login.component";
 import { DriverListComponent } from "./drivers/driver-list/driver-list.component";
 //import { DriverListComponent } from "./drivers/driver-list/driver-list.component";
 @NgModule({
@@ -51,8 +53,11 @@ import { DriverListComponent } from "./drivers/driver-list/driver-list.component
     MatButtonModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
+    MatSelectModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

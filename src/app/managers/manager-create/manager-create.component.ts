@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { ManagersService } from "../managers.service";
 import { Manager } from "../manager.model";
 import { mimeType } from "./mime-type.validator";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-manager-create",
@@ -21,12 +22,19 @@ export class ManagerCreateComponent implements OnInit {
   private managerId: string;
   manager: Manager;
 
+  private authStatusSub: Subscription;
+
   constructor(
     public managersService: ManagersService,
     public route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.authStatusSub = this.managersService
+      .getAuthStatusListener()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -46,13 +54,17 @@ export class ManagerCreateComponent implements OnInit {
       adharNo: new FormControl(null, {
         validators: [Validators.required]
       }),
+      password: new FormControl(null, {
+        validators: [Validators.required]
+      }),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
       }),
       workingCity: new FormControl(null, {
         validators: [Validators.required]
-      })
+      }),
+      isAdmin: new FormControl(true)
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("managerId")) {
@@ -73,8 +85,10 @@ export class ManagerCreateComponent implements OnInit {
               address: managerData.address,
               email: managerData.email,
               adharNo: managerData.adharNo,
+              password: managerData.password,
               workingCity: managerData.workingCity,
-              imagePath: managerData.imagePath
+              imagePath: managerData.imagePath,
+              isAdmin: managerData.isAdmin
             };
             console.log(
               managerData.workingCity + " and  " + managerData.imagePath
@@ -86,8 +100,10 @@ export class ManagerCreateComponent implements OnInit {
               address: this.manager.address,
               email: this.manager.email,
               adharNo: this.manager.adharNo,
+              password: this.manager.password,
               workingCity: this.manager.workingCity,
-              image: this.manager.imagePath
+              image: this.manager.imagePath,
+              isAdmin: this.manager.isAdmin
             });
           });
       } else {
@@ -121,9 +137,12 @@ export class ManagerCreateComponent implements OnInit {
         this.form.value.address,
         this.form.value.email,
         this.form.value.adharNo,
+        this.form.value.password,
         this.form.value.workingCity,
-        this.form.value.image
+        this.form.value.image,
+        this.form.value.isAdmin
       );
+      console.log(this.form.value.isAdmin);
     } else {
       this.managersService.updateManager(
         this.managerId,
@@ -133,8 +152,10 @@ export class ManagerCreateComponent implements OnInit {
         this.form.value.address,
         this.form.value.email,
         this.form.value.adharNo,
+        this.form.value.password,
         this.form.value.workingCity,
-        this.form.value.image
+        this.form.value.image,
+        this.form.value.isAdmin
       );
     }
     // const post: Post = {
@@ -143,5 +164,8 @@ export class ManagerCreateComponent implements OnInit {
     // };
 
     this.form.reset();
+  }
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }

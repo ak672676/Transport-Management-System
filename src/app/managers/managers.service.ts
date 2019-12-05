@@ -1,8 +1,10 @@
 import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { AuthData } from "./auth-data.model";
 
+import { map } from "rxjs/operators";
+import { error } from "util";
 import { Manager } from "./manager.model";
 import { Router } from "@angular/router";
 
@@ -11,7 +13,122 @@ export class ManagersService {
   private managers: Manager[] = [];
   private managersUpdated = new Subject<Manager[]>();
 
+  ///Login
+  private isAuthenticated = false;
+  private token: string;
+  private tokenTimer: any;
+  private userId: string;
+  private authStatusListener = new Subject<boolean>();
+
+  /////
   constructor(private http: HttpClient, private router: Router) {}
+  getToken() {
+    return this.token;
+  }
+
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
+
+  getUserId() {
+    return this.userId;
+  }
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
+
+  login(email: string, password: string) {
+    const authData: AuthData = { email: email, password: password };
+    this.http
+      .post<{ token: string; expiresIn: number; userId: string }>(
+        "http://localhost:3000/api/managers" + "/login",
+        authData
+      )
+      .subscribe(
+        response => {
+          const token = response.token;
+          this.token = token;
+          if (token) {
+            const expiresInDuration = response.expiresIn;
+            this.setAuthTimer(expiresInDuration);
+            this.isAuthenticated = true;
+            this.userId = response.userId;
+            this.authStatusListener.next(true);
+            const now = new Date();
+            const expirationDate = new Date(
+              now.getTime() + expiresInDuration * 1000
+            );
+            console.log(expirationDate);
+            this.saveAuthData(token, expirationDate, this.userId);
+            this.router.navigate(["/"]);
+          }
+        },
+        error => {
+          this.authStatusListener.next(false);
+        }
+      );
+  }
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    if (!authInformation) {
+      return;
+    }
+    const now = new Date();
+    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    if (expiresIn > 0) {
+      this.token = authInformation.token;
+
+      this.isAuthenticated = true;
+      this.userId = authInformation.userId;
+      this.setAuthTimer(expiresIn / 1000);
+      this.authStatusListener.next(true);
+    }
+  }
+
+  logout() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    this.userId = null;
+    clearTimeout(this.tokenTimer);
+    this.clearAuthData();
+    this.router.navigate(["/"]);
+  }
+
+  private setAuthTimer(duration: number) {
+    console.log("Setting timer " + duration);
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+    }, duration * 1000);
+  }
+
+  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("expiration", expirationDate.toISOString());
+    localStorage.setItem("userId", userId);
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiration");
+    localStorage.removeItem("userId");
+  }
+
+  private getAuthData() {
+    const token = localStorage.getItem("token");
+    const expirationDate = localStorage.getItem("expiration");
+    const userId = localStorage.getItem("userId");
+    if (!token && !expirationDate) {
+      return;
+    }
+    return {
+      token: token,
+      expirationDate: new Date(expirationDate),
+      userId: userId
+    };
+  }
 
   getManagers() {
     //return [...this.posts];
@@ -30,8 +147,10 @@ export class ManagersService {
               email: manager.email,
               adharNo: manager.adharNo,
               workingCity: manager.workingCity,
+              password: manager.password,
               id: manager._id,
-              imagePath: manager.imagePath
+              imagePath: manager.imagePath,
+              isAdmin: manager.isAdmin
             };
           });
         })
@@ -56,8 +175,10 @@ export class ManagersService {
       address: string;
       email: string;
       adharNo: string;
+      password: string;
       workingCity: string;
       imagePath: string;
+      isAdmin: string;
     }>("http://localhost:3000/api/managers/" + id);
   }
 
@@ -68,8 +189,10 @@ export class ManagersService {
     address: string,
     email: string,
     adharNo: string,
+    password: string,
     workingCity: string,
-    image: File
+    image: File,
+    isAdmin: string
   ) {
     //const post: Post = { id: null, title: title, content: content };
     const managerData = new FormData();
@@ -79,8 +202,10 @@ export class ManagersService {
     managerData.append("address", address);
     managerData.append("email", email);
     managerData.append("adharNo", adharNo);
+    managerData.append("password", password);
     managerData.append("workingCity", workingCity);
     managerData.append("image", image, name);
+    managerData.append("isAdmin", isAdmin);
     //{
     //   name: name,
     //   sex: sex,
@@ -108,8 +233,10 @@ export class ManagersService {
           address: address,
           email: email,
           adharNo: adharNo,
+          password: password,
           workingCity: workingCity,
-          imagePath: responseData.manager.imagePath
+          imagePath: responseData.manager.imagePath,
+          isAdmin: isAdmin
         };
         this.managers.push(manager);
         this.managersUpdated.next([...this.managers]);
@@ -125,8 +252,10 @@ export class ManagersService {
     address: string,
     email: string,
     adharNo: string,
+    password: string,
     workingCity: string,
-    image: File | string
+    image: File | string,
+    isAdmin: string
   ) {
     // const manager: Manager = {
     //   id: id,
@@ -149,8 +278,10 @@ export class ManagersService {
       managerData.append("address", address);
       managerData.append("email", email);
       managerData.append("adharNo", adharNo);
+      managerData.append("password", password);
       managerData.append("workingCity", workingCity);
       managerData.append("imagePath", image, name);
+      managerData.append("isAdmin", isAdmin);
     } else {
       managerData = {
         id: id,
@@ -160,8 +291,10 @@ export class ManagersService {
         address: address,
         email: email,
         adharNo: adharNo,
+        password: password,
         workingCity: workingCity,
-        imagePath: image
+        imagePath: image,
+        isAdmin: isAdmin
       };
     }
     this.http
@@ -189,8 +322,10 @@ export class ManagersService {
           address: address,
           email: email,
           adharNo: adharNo,
+          password: password,
           workingCity: workingCity,
-          imagePath: ""
+          imagePath: "",
+          isAdmin: isAdmin
         };
         updatedManagers[oldManagerIndex] = manager;
         this.managers = updatedManagers;

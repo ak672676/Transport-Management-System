@@ -56,6 +56,17 @@
       <input
         matInput
         type="text"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <mat-error *ngIf="form.get('password').invalid"
+        >Please enter the Password</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
         formControlName="workingCity"
         placeholder="Working City"
       />
@@ -75,6 +86,32 @@
     >
       <img [src]="imagePreview" [alt]="form.value.name" />
     </div>
+
+    <!-- <mat-radio-group formControlName="isAdmin">
+        <mat-radio-button value="true">
+          Admin
+        </mat-radio-button>
+        <mat-radio-button value="false">
+          No Admin
+        </mat-radio-button>
+      </mat-radio-group> -->
+    <!-- <select formControlName="isAdmin">
+      <option value="true">Admin</option>
+      <option value="false">No Admin</option>
+    </select> -->
+    <mat-form-field>
+      <mat-select formControlName="isAdmin">
+        <mat-option value="false">
+          Manager
+        </mat-option>
+        <mat-option value="true">
+          Make Manager
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('isAdmin').invalid"
+        >Please Select the option</mat-error
+      >
+    </mat-form-field>
 
     <button color="primary" mat-raised-button type="submit">
       Save Manager

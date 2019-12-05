@@ -8,4 +8,6 @@ export interface Manager {
   adharNo: string;
   imagePath: string;
   workingCity: string;
+  isAdmin: string;
+  password: string;
 }

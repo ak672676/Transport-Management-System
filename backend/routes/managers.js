@@ -17,4 +17,6 @@ router.get("/:id", ManagerController.getManager);
 
 router.delete("/:id", ManagerController.deleteManager);
 
+router.post("/login", ManagerController.loginManager);
+
 module.exports = router;
