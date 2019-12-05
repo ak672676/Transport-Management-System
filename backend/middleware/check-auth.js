@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
       email: decodedToken.email,
       managerId: decodedToken.managerId
     };
+
     next();
   } catch (error) {
     res.status(401).json({
