@@ -1,0 +1,17 @@
+.cityForm {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blueviolet;
+  padding: 10px;
+}
+mat-form-field,
+textarea {
+  width: 100%;
+}
+.cityForm {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blueviolet;
+  padding: 10px;
+  background-color: transparent;
+}

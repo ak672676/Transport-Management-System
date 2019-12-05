@@ -1,0 +1,19 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+input[type="file"] {
+  visibility: hidden;
+}
+
+.managerLoginForm {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blueviolet;
+  padding: 10px;
+  background-color: transparent;
+}

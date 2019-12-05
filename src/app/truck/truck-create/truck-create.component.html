@@ -1,0 +1,78 @@
+<br />
+<mat-card class="truckForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveTruck()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="make" placeholder="Make" />
+      <mat-error *ngIf="form.get('make').invalid"
+        >Please enter the make</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="model" placeholder="model" />
+      <mat-error *ngIf="form.get('model').invalid"
+        >Please enter model</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="chassisNo"
+        placeholder="chassisNo"
+      />
+      <mat-error *ngIf="form.get('chassisNo').invalid"
+        >Please enter the chassisNo</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="vehicleNo"
+        placeholder="vehicleNo"
+      />
+      <mat-error *ngIf="form.get('vehicleNo').invalid"
+        >Please enter the vehicleNo</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="insCompany"
+        placeholder="insCompany"
+      />
+      <mat-error *ngIf="form.get('insCompany').invalid"
+        >Please enter insCompany</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="insNumber"
+        placeholder="insNumber"
+      />
+      <mat-error *ngIf="form.get('insNumber').invalid"
+        >Please enter the insNumber</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="lastServiceDate"
+        placeholder="lastServiceDate"
+      />
+      <mat-error *ngIf="form.get('lastServiceDate').invalid"
+        >Please enter lastServiceDate</mat-error
+      >
+    </mat-form-field>
+
+    <button color="primary" mat-raised-button type="submit">
+      Save Truck
+    </button>
+  </form>
+</mat-card>

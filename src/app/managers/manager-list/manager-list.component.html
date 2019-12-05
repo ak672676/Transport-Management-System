@@ -1,0 +1,26 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="managers.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let manager of managers">
+    <mat-expansion-panel-header>
+      {{ manager.name }}
+    </mat-expansion-panel-header>
+    <div class="manager-image">
+      <img [src]="manager.imagePath" [alt]="manager.name" />
+    </div>
+    <p><b>Sex: </b>{{ manager.sex }}</p>
+    <p><b>Phone: </b>{{ manager.phone }}</p>
+    <p><b>Address: </b>{{ manager.address }}</p>
+    <p><b>Email: </b>{{ manager.email }}</p>
+    <p><b>Adhar No: </b>{{ manager.adharNo }}</p>
+    <p><b>Woking City: </b>{{ manager.workingCity }}</p>
+    <mat-action-row>
+      <a color="primary" mat-button [routerLink]="['edit', manager.id]">Edit</a>
+      <button color="warn" (click)="onDelete(manager.id)" mat-button>
+        Delete
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="managers.length <= 0 && !isLoading">
+  No manager added yet
+</p>

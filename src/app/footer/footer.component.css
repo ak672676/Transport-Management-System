@@ -1,0 +1,16 @@
+mat-toolbar {
+  background-color: transparent;
+}
+
+.footerContent {
+  width: 100%;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+  line-height: 0%;
+}
+.footer {
+  height: 50px;
+  border-top: 3px dotted #c33764;
+  margin-top: 5px;
+}

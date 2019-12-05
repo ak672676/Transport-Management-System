@@ -1,0 +1,59 @@
+<br />
+<mat-card class="cityForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveCity()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="cityName"
+        placeholder="City"
+      />
+      <mat-error *ngIf="form.get('cityName').invalid"
+        >Please enter the city</mat-error
+      >
+    </mat-form-field>
+    <br /><br />
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="landmark"
+        placeholder="Landmark"
+      />
+      <mat-error *ngIf="form.get('landmark').invalid"
+        ><span style="color: red;">Please enter the landmark</span></mat-error
+      >
+    </mat-form-field>
+    <br />
+    <br />
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="pin"
+        placeholder="PIN Code"
+      />
+      <mat-error *ngIf="form.get('pin').invalid"
+        >Please enter the pin
+      </mat-error>
+    </mat-form-field>
+    <br /><br />
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="manager"
+        placeholder="Manager"
+      />
+      <mat-error *ngIf="form.get('manager').invalid"
+        >Please enter a post title</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <br />
+    <button color="primary" mat-raised-button type="submit">
+      Save City
+    </button>
+  </form>
+</mat-card>

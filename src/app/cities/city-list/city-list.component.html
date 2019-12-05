@@ -1,0 +1,22 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="cities.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let city of cities">
+    <mat-expansion-panel-header>
+      {{ city.cityName }}
+    </mat-expansion-panel-header>
+    <p><b>Landmark</b> {{ city.landmark }}</p>
+
+    <p><b>PIN</b> {{ city.pin }}</p>
+
+    <p><b>Manager</b> {{ city.manager }}</p>
+    <mat-action-row>
+      <a color="primary" mat-button [routerLink]="['edit', city.id]">Edit</a>
+      <button color="warn" (click)="onDelete(city.id)" mat-button>
+        Delete
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="cities.length <= 0 && !isLoading">
+  No post added yet
+</p>
