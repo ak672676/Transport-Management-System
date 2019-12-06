@@ -46,6 +46,7 @@ exports.createManager = (req, res, next) => {
       imagePath: url + "/images/" + req.file.filename,
       isAdmin: req.body.isAdmin
     });
+
     manager.save().then(createdManager => {
       res.status(201).json({
         message: "Manager added successfully",
@@ -55,6 +56,7 @@ exports.createManager = (req, res, next) => {
         }
       });
     });
+
     console.log("SAVED IN BACKEND");
   });
   //console.log(req.body.title);
@@ -80,6 +82,7 @@ exports.updateManager = (req, res, next) => {
     isAdmin: req.body.isAdmin
   });
   //console.log(post);
+
   Manager.updateOne({ _id: req.params.id }, manager)
     .then(result => {
       if (result.n > 0) {
@@ -95,6 +98,44 @@ exports.updateManager = (req, res, next) => {
       });
     });
 };
+
+// exports.updateManager = (req, res, next) => {
+//   let imagePath = req.body.imagePath;
+//   if (req.file) {
+//     const url = req.protocol + "://" + req.get("host");
+//     imagePath = url + "/images/" + req.file.filename;
+//   }
+//   bcrypt.hash(req.body.password, 10).then(hash => {
+//     const manager = new Manager({
+//       name: req.body.name,
+//       sex: req.body.sex,
+//       phone: req.body.phone,
+//       email: req.body.email,
+//       address: req.body.address,
+//       adharNo: req.body.adharNo,
+//       password: hash,
+//       workingCity: req.body.workingCity,
+//       imagePath: imagePath,
+//       isAdmin: req.body.isAdmin
+//     });
+
+//     Manager.updateOne({ _id: req.params.id }, manager)
+//       .then(result => {
+//         if (result.n > 0) {
+//           console.log("Updated");
+//           res.status(200).json({ message: "Update successful!" });
+//         } else {
+//           res.status(401).json({ message: "Not Authorized" });
+//         }
+//       })
+//       .catch(error => {
+//         res.status(500).json({
+//           message: "Couldn't update the post"
+//         });
+//       });
+//   });
+//   //console.log(req.body.title);
+// };
 
 exports.getManagers = (req, res, next) => {
   Manager.find().then(documents => {

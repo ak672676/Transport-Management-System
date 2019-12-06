@@ -9,7 +9,8 @@ import { ManagerLoginComponent } from "./managers/manager-login/manager-login.co
 import { TruckCreateComponent } from "./truck/truck-create/truck-create.component";
 import { DriverListComponent } from "./drivers/driver-list/driver-list.component";
 import { DriverCreateComponent } from "./drivers/driver-create/driver-create.component";
-
+import { CustomerCreateComponent } from "./customers/customer-create/customer-create.component";
+import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
 const routes: Routes = [
   { path: "city", component: CityListComponent },
   { path: "city/create", component: CityCreateComponent },
@@ -21,7 +22,10 @@ const routes: Routes = [
   { path: "driver/create", component: DriverCreateComponent },
   { path: "driver/edit/:driverId", component: DriverCreateComponent },
   { path: "truck/create", component: TruckCreateComponent },
-  { path: "login", component: ManagerLoginComponent }
+  { path: "login", component: ManagerLoginComponent },
+  { path: "customer/create", component: CustomerCreateComponent },
+  { path: "customer/edit/:customerId", component: CustomerCreateComponent },
+  { path: "customer", component: CustomerListComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

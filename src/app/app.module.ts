@@ -27,7 +27,9 @@ import { TruckCreateComponent } from "./truck/truck-create/truck-create.componen
 import { AdminLoginComponent } from "./login/admin-login/admin-login.component";
 import { ManagerLoginComponent } from "./managers/manager-login/manager-login.component";
 import { DriverListComponent } from "./drivers/driver-list/driver-list.component";
-//import { DriverListComponent } from "./drivers/driver-list/driver-list.component";
+import { CustomerCreateComponent } from "./customers/customer-create/customer-create.component";
+import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,9 @@ import { DriverListComponent } from "./drivers/driver-list/driver-list.component
     DriverListComponent,
     TruckCreateComponent,
     AdminLoginComponent,
-    ManagerLoginComponent
+    ManagerLoginComponent,
+    CustomerCreateComponent,
+    CustomerListComponent
   ],
   imports: [
     BrowserModule,

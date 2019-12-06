@@ -7,6 +7,8 @@ const citiesRoutes = require("./routes/cities");
 const managersRoutes = require("./routes/managers");
 const driversRoutes = require("./routes/drivers");
 
+//const Customer = require("./models/customer");
+
 const app = express();
 
 mongoose

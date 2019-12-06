@@ -1,0 +1,95 @@
+<br />
+<mat-card class="managerForm">
+  <mat-spinner *ngIf="isLoading"> </mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveCustomer()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="customerName"
+        placeholder="Customer Name"
+      />
+      <mat-error *ngIf="form.get('customerName').invalid"
+        >Please enter the Customer Name</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field *ngIf="!edit">
+      <input
+        matInput
+        type="text"
+        formControlName="customerId"
+        placeholder="Customer ID"
+      />
+      <mat-error *ngIf="form.get('customerId').invalid"
+        >Please enter the Customer Id</mat-error
+      >
+    </mat-form-field>
+    <!-- <p *ngIf="edit">xxxxxxxxx</p> -->
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="street"
+        placeholder="Street"
+      />
+      <mat-error *ngIf="form.get('street').invalid"
+        >Please enter the Street</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="city" placeholder="City" />
+      <mat-error *ngIf="form.get('city').invalid"
+        >Please enter the City</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="state" placeholder="State" />
+      <mat-error *ngIf="form.get('state').invalid"
+        >Please enter the State</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="country"
+        placeholder="Country"
+      />
+      <mat-error *ngIf="form.get('country').invalid"
+        >Please enter the Country</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="pin" placeholder="PIN" />
+      <mat-error *ngIf="form.get('pin').invalid"
+        >Please enter the PIN</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="phone" placeholder="Phone" />
+      <mat-error *ngIf="form.get('phone').invalid"
+        >Please enter the Phone</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="email" placeholder="Email" />
+      <mat-error *ngIf="form.get('email').invalid"
+        >Please enter the Email</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="gstNo"
+        placeholder="GST Number"
+      />
+      <mat-error *ngIf="form.get('gstNo').invalid"
+        >Please enter the GST Number</mat-error
+      >
+    </mat-form-field>
+    <button color="primary" mat-raised-button type="submit">
+      Save Customer
+    </button>
+  </form>
+</mat-card>
