@@ -138,7 +138,10 @@ export class ManagersService {
       )
       .pipe(
         map(managerData => {
+          //console.log(managerData);
           return managerData.managers.map(manager => {
+            //console.log("Customer=>");
+            //console.log(manager);
             return {
               name: manager.name,
               sex: manager.sex,
@@ -156,6 +159,8 @@ export class ManagersService {
         })
       )
       .subscribe(transformedManagers => {
+        console.log("-----------");
+        console.log(transformedManagers);
         this.managers = transformedManagers;
         this.managersUpdated.next([...this.managers]);
       });

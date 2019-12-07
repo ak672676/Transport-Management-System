@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 
 import { Customer } from "./customer.model";
+import { error } from "util";
 
 import { Router } from "@angular/router";
 @Injectable({ providedIn: "root" })
@@ -15,13 +16,17 @@ export class CustomersService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getCustomers() {
+    //console.log("DATA");
     this.http
       .get<{ message: string; customers: any }>(
         "http://localhost:3000/api/customers"
       )
       .pipe(
         map(customerData => {
+          //console.log(customerData);
           return customerData.customers.map(customer => {
+            // console.log("Customer=>");
+            // console.log(customer);
             return {
               id: customer._id,
               customerId: customer.customerId,
@@ -39,8 +44,10 @@ export class CustomersService {
         })
       )
       .subscribe(transformedCustomers => {
+        //console.log("-----------");
+        //console.log(transformedCustomers);
         this.customers = transformedCustomers;
-        this.customersUpdated.next({ ...this.customers });
+        this.customersUpdated.next([...this.customers]);
       });
   }
 

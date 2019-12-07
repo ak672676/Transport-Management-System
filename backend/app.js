@@ -6,6 +6,7 @@ const path = require("path");
 const citiesRoutes = require("./routes/cities");
 const managersRoutes = require("./routes/managers");
 const driversRoutes = require("./routes/drivers");
+const customersRoutes = require("./routes/customers");
 
 //const Customer = require("./models/customer");
 
@@ -43,5 +44,6 @@ app.use((req, res, next) => {
 app.use("/api/cities", citiesRoutes);
 app.use("/api/managers", managersRoutes);
 app.use("/api/drivers", driversRoutes);
+app.use("/api/customers", customersRoutes);
 
 module.exports = app;

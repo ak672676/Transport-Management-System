@@ -30,6 +30,8 @@ export class ManagerListComponent implements OnInit, OnDestroy {
       .subscribe((managers: Manager[]) => {
         this.isLoading = false;
         this.managers = managers;
+        //console.log(this.managers);
+        console.log(this.managers.length);
       });
   }
 

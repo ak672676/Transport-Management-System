@@ -24,6 +24,9 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       .subscribe((customers: Customer[]) => {
         this.isLoading = false;
         this.customers = customers;
+        //console.log("********************");
+        //console.log(this.customers);
+        console.log(this.customers.length);
       });
   }
   onDelete(customerId: string) {
