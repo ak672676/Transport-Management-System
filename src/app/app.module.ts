@@ -29,6 +29,7 @@ import { ManagerLoginComponent } from "./managers/manager-login/manager-login.co
 import { DriverListComponent } from "./drivers/driver-list/driver-list.component";
 import { CustomerCreateComponent } from "./customers/customer-create/customer-create.component";
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
+import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CustomerListComponent } from "./customers/customer-list/customer-list.c
     AdminLoginComponent,
     ManagerLoginComponent,
     CustomerCreateComponent,
-    CustomerListComponent
+    CustomerListComponent,
+    CustomerSearchListComponent
   ],
   imports: [
     BrowserModule,

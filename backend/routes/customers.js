@@ -15,6 +15,8 @@ router.get("", CustomerController.getCustomers);
 
 router.get("/:id", CustomerController.getCustomer);
 
+router.get("/search/:phone", CustomerController.getSearchCustomer);
+
 router.delete("/:id", CustomerController.deleteCustomer);
 
 module.exports = router;

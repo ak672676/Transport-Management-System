@@ -11,6 +11,8 @@ import { DriverListComponent } from "./drivers/driver-list/driver-list.component
 import { DriverCreateComponent } from "./drivers/driver-create/driver-create.component";
 import { CustomerCreateComponent } from "./customers/customer-create/customer-create.component";
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
+import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
+
 const routes: Routes = [
   { path: "city", component: CityListComponent },
   { path: "city/create", component: CityCreateComponent },
@@ -25,7 +27,8 @@ const routes: Routes = [
   { path: "login", component: ManagerLoginComponent },
   { path: "customer/create", component: CustomerCreateComponent },
   { path: "customer/edit/:customerId", component: CustomerCreateComponent },
-  { path: "customer", component: CustomerListComponent }
+  { path: "customer", component: CustomerListComponent },
+  { path: "customer/search", component: CustomerSearchListComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

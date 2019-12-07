@@ -7,6 +7,8 @@ export interface Bill {
   customer: Customer;
   reciever: Customer;
   amount: number;
-  status: string[];
+  date: Date;
+  routeCovered: string[];
+  status: string;
   items: Item[];
 }

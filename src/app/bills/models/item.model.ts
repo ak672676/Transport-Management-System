@@ -1,5 +1,5 @@
 export interface Item {
-  id: string;
+  //id: string;
   description: string;
   numberOfPackage: number;
   cost: number;

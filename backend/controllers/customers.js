@@ -108,3 +108,22 @@ exports.deleteCustomer = (req, res, next) => {
       });
     });
 };
+
+exports.getSearchCustomer = (req, res, next) => {
+  // console.log("GETTING DATA");
+  //Customer.find({ phone: { $regex: /req.params.phone/ } })
+
+  Customer.find({ phone: req.params.phone })
+    .then(document => {
+      res.status(200).json({
+        message: "Customer fetched Successfully",
+        customers: document
+      });
+      console.log(document);
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Could not fetch the customer"
+      });
+    });
+};

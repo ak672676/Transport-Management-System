@@ -172,4 +172,40 @@ export class CustomersService {
         this.customersUpdated.next([...this.customers]);
       });
   }
+
+  getSearchCustomers(phone: string) {
+    console.log("DATA");
+    this.http
+      .get<{ message: string; customers: any }>(
+        "http://localhost:3000/api/customers/search/" + phone
+      )
+      .pipe(
+        map(customerData => {
+          //console.log(customerData);
+          return customerData.customers.map(customer => {
+            // console.log("Customer=>");
+            // console.log(customer);
+            return {
+              id: customer._id,
+              customerId: customer.customerId,
+              customerName: customer.customerName,
+              street: customer.street,
+              city: customer.city,
+              state: customer.state,
+              country: customer.country,
+              pin: customer.pin,
+              phone: customer.phone,
+              email: customer.email,
+              gstNo: customer.gstNo
+            };
+          });
+        })
+      )
+      .subscribe(transformedCustomers => {
+        //console.log("-----------");
+        //console.log(transformedCustomers);
+        this.customers = transformedCustomers;
+        this.customersUpdated.next([...this.customers]);
+      });
+  }
 }
