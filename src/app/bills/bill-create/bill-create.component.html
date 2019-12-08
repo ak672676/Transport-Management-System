@@ -1,17 +1,18 @@
 <br />
 <mat-card class="billForm">
   <mat-spinner *ngIf="isLoading"> </mat-spinner>
-  <form [formGroup]="form" (submit)="onSaveBill()" *ngIf="!isLoading">
-    <mat-form-field *ngIf="!edit">
+  <form [formGroup]="billForm" (submit)="onSaveBill()" *ngIf="!isLoading">
+    <mat-form-field>
       <input
         matInput
         type="text"
         formControlName="billId"
         placeholder="Bill Id"
       />
-      <mat-error *ngIf="form.get('bilId')"> </mat-error>
+      <mat-error *ngIf="billForm.get('bilId')"> </mat-error>
     </mat-form-field>
     <!-- CUSTOMER DATA -->
+    <hr />
     <mat-form-field>
       <input
         matInput
@@ -19,7 +20,7 @@
         formControlName="customerId"
         placeholder="Customer Id"
       />
-      <mat-error *ngIf="form.get('customerId')"></mat-error>
+      <mat-error *ngIf="billForm.get('customerId')"></mat-error>
     </mat-form-field>
     <mat-form-field>
       <input
@@ -28,7 +29,7 @@
         formControlName="customerName"
         placeholder="Customer Name"
       />
-      <mat-error *ngIf="form.get('customerName').invalid"
+      <mat-error *ngIf="billForm.get('customerName').invalid"
         >Please enter the Customer Name</mat-error
       >
     </mat-form-field>
@@ -39,19 +40,19 @@
         formControlName="street"
         placeholder="Street"
       />
-      <mat-error *ngIf="form.get('street').invalid"
+      <mat-error *ngIf="billForm.get('street').invalid"
         >Please enter the Street</mat-error
       >
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="city" placeholder="City" />
-      <mat-error *ngIf="form.get('city').invalid"
+      <mat-error *ngIf="billForm.get('city').invalid"
         >Please enter the City</mat-error
       >
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="state" placeholder="State" />
-      <mat-error *ngIf="form.get('state').invalid"
+      <mat-error *ngIf="billForm.get('state').invalid"
         >Please enter the State</mat-error
       >
     </mat-form-field>
@@ -62,25 +63,25 @@
         formControlName="country"
         placeholder="Country"
       />
-      <mat-error *ngIf="form.get('country').invalid"
+      <mat-error *ngIf="billForm.get('country').invalid"
         >Please enter the Country</mat-error
       >
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="pin" placeholder="PIN" />
-      <mat-error *ngIf="form.get('pin').invalid"
+      <mat-error *ngIf="billForm.get('pin').invalid"
         >Please enter the PIN</mat-error
       >
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="phone" placeholder="Phone" />
-      <mat-error *ngIf="form.get('phone').invalid"
+      <mat-error *ngIf="billForm.get('phone').invalid"
         >Please enter the Phone</mat-error
       >
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="email" placeholder="Email" />
-      <mat-error *ngIf="form.get('email').invalid"
+      <mat-error *ngIf="billForm.get('email').invalid"
         >Please enter the Email</mat-error
       >
     </mat-form-field>
@@ -91,13 +92,12 @@
         formControlName="gstNo"
         placeholder="GST Number"
       />
-      <mat-error *ngIf="form.get('gstNo').invalid"
+      <mat-error *ngIf="billForm.get('gstNo').invalid"
         >Please enter the GST Number</mat-error
       >
     </mat-form-field>
-
+    <hr />
     <!-- RECIEVER DATA -->
-
     <mat-form-field>
       <input
         matInput
@@ -105,7 +105,7 @@
         formControlName="r_customerId"
         placeholder="Reciever Id"
       />
-      <mat-error *ngIf="form.get('r_customerId')"></mat-error>
+      <mat-error *ngIf="billForm.get('r_customerId')"></mat-error>
     </mat-form-field>
     <mat-form-field>
       <input
@@ -114,7 +114,7 @@
         formControlName="r_customerName"
         placeholder="Reciever Name"
       />
-      <mat-error *ngIf="form.get('r_customerName').invalid"
+      <mat-error *ngIf="billForm.get('r_customerName').invalid"
         >Please enter the Reciever Name</mat-error
       >
     </mat-form-field>
@@ -125,7 +125,7 @@
         formControlName="r_street"
         placeholder="Reciever Street"
       />
-      <mat-error *ngIf="form.get('r_street').invalid"
+      <mat-error *ngIf="billForm.get('r_street').invalid"
         >Please enter the Reciever Street</mat-error
       >
     </mat-form-field>
@@ -136,7 +136,7 @@
         formControlName="r_city"
         placeholder="Reciever City"
       />
-      <mat-error *ngIf="form.get('r_city').invalid"
+      <mat-error *ngIf="billForm.get('r_city').invalid"
         >Please enter the Reciever City</mat-error
       >
     </mat-form-field>
@@ -147,7 +147,7 @@
         formControlName="r_state"
         placeholder="Reciever State"
       />
-      <mat-error *ngIf="form.get('r_state').invalid"
+      <mat-error *ngIf="billForm.get('r_state').invalid"
         >Please enter the Reciever State</mat-error
       >
     </mat-form-field>
@@ -158,7 +158,7 @@
         formControlName="r_country"
         placeholder="Reciever Country"
       />
-      <mat-error *ngIf="form.get('r_country').invalid"
+      <mat-error *ngIf="billForm.get('r_country').invalid"
         >Please enter the Reciever Country</mat-error
       >
     </mat-form-field>
@@ -169,7 +169,7 @@
         formControlName="r_pin"
         placeholder="Reciever PIN"
       />
-      <mat-error *ngIf="form.get('r_pin').invalid"
+      <mat-error *ngIf="billForm.get('r_pin').invalid"
         >Please enter the Reciever PIN</mat-error
       >
     </mat-form-field>
@@ -180,7 +180,7 @@
         formControlName="r_phone"
         placeholder="Reciever Phone"
       />
-      <mat-error *ngIf="form.get('r_phone').invalid"
+      <mat-error *ngIf="billForm.get('r_phone').invalid"
         >Please enter the Reciever Phone</mat-error
       >
     </mat-form-field>
@@ -191,7 +191,7 @@
         formControlName="r_email"
         placeholder="Reciever Email"
       />
-      <mat-error *ngIf="form.get('r_email').invalid"
+      <mat-error *ngIf="billForm.get('r_email').invalid"
         >Please enter the Reciever Email</mat-error
       >
     </mat-form-field>
@@ -202,11 +202,11 @@
         formControlName="r_gstNo"
         placeholder="Reciever GST Number"
       />
-      <mat-error *ngIf="form.get('r_gstNo').invalid"
+      <mat-error *ngIf="billForm.get('r_gstNo').invalid"
         >Please enter the Reciever GST Number</mat-error
       >
     </mat-form-field>
-    <!-- *************** -->
+    <hr />
     <mat-form-field>
       <input
         matInput
@@ -214,7 +214,7 @@
         formControlName="bookingDate"
         placeholder="Booking Date"
       />
-      <mat-error *ngIf="form.get('bookingDate').invalid"
+      <mat-error *ngIf="billForm.get('bookingDate').invalid"
         >Please enter the Booking Date</mat-error
       >
     </mat-form-field>
@@ -225,65 +225,72 @@
         formControlName="bookingStatus"
         placeholder="Booking Status"
       />
-      <mat-error *ngIf="form.get('bookingStatus').invalid"
+      <mat-error *ngIf="billForm.get('bookingStatus').invalid"
         >Please enter the Booking Status</mat-error
       >
     </mat-form-field>
-    <!-- Adding Status of route Covered -->
+    <hr />
+    <!-- UPDATE STATUS -->
+    <p style="text-align: center;"><b>Update Status</b></p>
     <div>
-      <div formArrayName="routeCovered">
-        <div *ngFor="let city of routeCovered.controls; index as i">
-          <input
-            matInput
-            type="text"
-            formControlName="{{ i }}"
-            placeholder="City"
-          />
-        </div>
-      </div>
-      <button (click)="addCity()">Add City</button>
-    </div>
-    <!--Adding the Items -->
-    <div>
-      <div formArrayName="items">
-        <div
-          *ngFor="let item of items.controls; index as i"
-          [formGroupName]="i"
-        >
-          <input
-            matInput
-            type="text"
-            formControlName="description"
-            placeholder="Description"
-          />
-          <input
-            matInput
-            type="number"
-            formControlName="numberOfPackage"
-            placeholder="Number Of Package"
-          />
-          <input
-            matInput
-            type="number"
-            formControlName="cost"
-            placeholder="Cost"
-          />
-        </div>
-      </div>
-      <button
-        (click)="addItem()"
-        color="primary"
-        mat-raised-button
-        type="submit"
+      <div
+        formArrayName="routeCovered"
+        *ngFor="
+          let city of billForm.get('routeCovered')['controls'];
+          let i = index
+        "
       >
+        <div [formGroupName]="i">
+          <mat-form-field>
+            <input matInput formControlName="city" placeholder="City" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="time" placeholder="Time" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="date" placeholder="Date" />
+          </mat-form-field>
+        </div>
+      </div>
+      <button (click)="addCurrentCity()" color="primary" mat-raised-button>
+        Add Current City
+      </button>
+    </div>
+    <!-- ADD ITEMS -->
+    <hr />
+    <p style="text-align: center;"><b>Items</b></p>
+    <div>
+      <div
+        formArrayName="items"
+        *ngFor="let item of billForm.get('items')['controls']; let i = index"
+      >
+        <div [formGroupName]="i">
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="description"
+              placeholder="Description"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="numberOfPackage"
+              placeholder="Nuumber Of Packages"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="cost" placeholder="Cost" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button (click)="addItemToGroup()" color="primary" mat-raised-button>
         Add Item
       </button>
     </div>
-    <!-- Amount -->
-    <mat-form-field>
-      <p>{{ amount }}</p>
-    </mat-form-field>
     <!-- Submission to the server -->
+    <br />
     <button color="primary" mat-raised-button type="submit">
       Save Bill
     </button>

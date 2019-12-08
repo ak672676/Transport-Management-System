@@ -30,6 +30,7 @@ import { DriverListComponent } from "./drivers/driver-list/driver-list.component
 import { CustomerCreateComponent } from "./customers/customer-create/customer-create.component";
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
 import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
+import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { CustomerSearchListComponent } from "./customers/customer-search/custome
     ManagerLoginComponent,
     CustomerCreateComponent,
     CustomerListComponent,
-    CustomerSearchListComponent
+    CustomerSearchListComponent,
+    BillCreateComponent
   ],
   imports: [
     BrowserModule,
