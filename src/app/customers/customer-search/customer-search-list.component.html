@@ -28,7 +28,7 @@
     <p><b>Phone</b> {{ customer.phone }}</p>
     <p><b>Email</b> {{ customer.email }}</p>
     <p><b>GST No</b> {{ customer.gstNo }}</p>
-    <mat-action-row>
+    <mat-action-row *ngIf="customersService.forDelEditOption">
       <a color="primary" mat-button [routerLink]="['../', 'edit', customer.id]"
         >Edit</a
       >
@@ -37,6 +37,11 @@
       > -->
       <button color="warn" (click)="onDelete(customer.id)" mat-button>
         Delete
+      </button>
+    </mat-action-row>
+    <mat-action-row *ngIf="!customersService.forDelEditOption">
+      <button color="warn" (click)="onCustomerSelect(customer)" mat-button>
+        Select
       </button>
     </mat-action-row>
   </mat-expansion-panel>

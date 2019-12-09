@@ -11,7 +11,15 @@ import { Router } from "@angular/router";
 export class CustomersService {
   private customers: Customer[] = [];
 
+  forDelEditOption: boolean = true;
+
   private customersUpdated = new Subject<Customer[]>();
+
+  ///Testing Billing
+  selectedCustomer: Customer = null;
+  selectedIdForBill: string = null;
+  ///////
+  test = new Subject<number>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -95,7 +103,7 @@ export class CustomersService {
       email: email,
       gstNo: gstNo
     };
-
+    console.log("->>", customerData);
     this.http
       .post<{ message: string; customer: Customer }>(
         "http://localhost:3000/api/customers/",

@@ -28,10 +28,35 @@ export class CustomerSearchListComponent implements OnInit, OnDestroy {
         //console.log(this.customers);
         console.log(this.customers.length);
       });
+    this.customersService.test.subscribe((n: number) => {
+      console.log("From=>" + n);
+    });
   }
   onDelete(customerId: string) {
     this.customersService.deleteCustomer(customerId);
   }
+
+  onCustomerSelect(customerSelected: Customer) {
+    //console.log("--->", customerId);
+    this.customersService.selectedCustomer = customerSelected;
+    // this.customersService.getCustomer(customerId).subscribe(customerData => {
+    //   //this.isLoading = false;
+    //   this.customersService.selectedCustomer = {
+    //     id: customerData._id,
+    //     customerId: customerData.customerId,
+    //     customerName: customerData.customerName,
+    //     street: customerData.street,
+    //     city: customerData.city,
+    //     state: customerData.state,
+    //     country: customerData.country,
+    //     pin: customerData.pin,
+    //     phone: customerData.phone,
+    //     email: customerData.email,
+    //     gstNo: customerData.gstNo
+    //   };
+    // });
+  }
+
   onSearch(phone: string) {
     if (phone === "") {
       //this.searchingPhone = phone;
