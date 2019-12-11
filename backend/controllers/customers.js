@@ -1,7 +1,7 @@
 const Customer = require("../models/customer");
 
 exports.createCustomer = (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
+  //const url = req.protocol + "://" + req.get("host");
   const customer = new Customer({
     customerId: req.body.customerId,
     customerName: req.body.customerName,

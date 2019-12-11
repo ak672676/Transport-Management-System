@@ -1,0 +1,52 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<mat-accordion multi="true" *ngIf="bills.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let bill of bills">
+    <mat-expansion-panel-header>
+      <p><b>Bill Id</b> {{ bill.billId }}</p>
+    </mat-expansion-panel-header>
+    <p style="text-align: center;font-size: large;">
+      <b><u>Sender Detail</u></b>
+    </p>
+    <p><b>Customer Id: </b> {{ bill.customerId }}</p>
+    <p><b>Customer Name: </b> {{ bill.customerName }}</p>
+    <p>
+      <b>Address:</b>{{ bill.street }} , {{ bill.city }} , {{ bill.state }} ,
+      {{ bill.country }} , ({{ bill.pin }})
+    </p>
+
+    <p><b>Phone:</b>{{ bill.phone }}</p>
+
+    <hr />
+    <hr />
+    <p style="text-align: center;font-size: large;"><b>Reciever Detail</b></p>
+    <p><b>Reciever Id: </b> {{ bill.r_customerId }}</p>
+    <p><b>Reciever Name: </b> {{ bill.r_customerName }}</p>
+    <p>
+      <b>Address:</b>{{ bill.r_street }} , {{ bill.r_city }} ,
+      {{ bill.r_state }} , {{ bill.r_country }} , ({{ bill.r_pin }})
+    </p>
+
+    <p><b>Phone:</b>{{ bill.r_phone }}</p>
+    <!-- <p><b>Street</b> {{ customer.street }}</p>
+
+    <p><b>City</b> {{ customer.city }}</p>
+    <p><b>State</b> {{ customer.state }}</p>
+    <p><b>Country</b> {{ customer.country }}</p>
+    <p><b>PIN</b> {{ customer.pin }}</p>
+    <p><b>Phone</b> {{ customer.phone }}</p>
+    <p><b>Email</b> {{ customer.email }}</p>
+    <p><b>GST No</b> {{ customer.gstNo }}</p> -->
+    <!-- <mat-action-row>
+      <a color="primary" mat-button [routerLink]="['edit', customer.id]"
+        >Edit</a
+      >
+      <button color="warn" (click)="onDelete(customer.id)" mat-button>
+        Delete
+      </button>
+    </mat-action-row> -->
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="bills.length <= 0 && !isLoading">
+  No Bill added yet
+</p>

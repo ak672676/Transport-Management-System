@@ -42,7 +42,7 @@ export class BillCreateComponent {
   ) {}
   ngOnInit() {
     this.billForm = this.formBuilder.group({
-      billId: new FormControl(200),
+      billId: new FormControl({ value: null, disabled: true }),
       customerId: new FormControl(null),
       customerName: new FormControl(null, {
         validators: [Validators.required]
@@ -169,7 +169,9 @@ export class BillCreateComponent {
       this.customerUniqueId,
       this.recieverUniqueId
     );
+    this.billForm.reset();
   }
+
   onCustomerAutoFill() {
     this.showCustomerSearchMenu = true;
   }

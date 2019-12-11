@@ -13,6 +13,7 @@ import { CustomerCreateComponent } from "./customers/customer-create/customer-cr
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
 import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
 import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
+import { BillListComponent } from "./bills/bill-list/bill-list.component";
 
 const routes: Routes = [
   { path: "city", component: CityListComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: "customer/edit/:customerId", component: CustomerCreateComponent },
   { path: "customer", component: CustomerListComponent },
   { path: "customer/search", component: CustomerSearchListComponent },
-  { path: "bill/create", component: BillCreateComponent }
+  { path: "bill/create", component: BillCreateComponent },
+  { path: "bill", component: BillListComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -18,6 +18,8 @@ export class ManagersService {
   private token: string;
   private tokenTimer: any;
   private userId: string;
+  private city: string;
+  private isAdmin: string;
   private authStatusListener = new Subject<boolean>();
 
   /////
@@ -41,16 +43,21 @@ export class ManagersService {
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post<{ token: string; expiresIn: number; userId: string }>(
-        "http://localhost:3000/api/managers" + "/login",
-        authData
-      )
+      .post<{
+        token: string;
+        expiresIn: number;
+        userId: string;
+        city: string;
+        isAdmin: string;
+      }>("http://localhost:3000/api/managers" + "/login", authData)
       .subscribe(
         response => {
           const token = response.token;
           this.token = token;
           if (token) {
             const expiresInDuration = response.expiresIn;
+            this.city = response.city;
+            this.isAdmin = response.city;
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
             this.userId = response.userId;
@@ -60,7 +67,13 @@ export class ManagersService {
               now.getTime() + expiresInDuration * 1000
             );
             console.log(expirationDate);
-            this.saveAuthData(token, expirationDate, this.userId);
+            this.saveAuthData(
+              token,
+              expirationDate,
+              this.userId,
+              this.city,
+              this.isAdmin
+            );
             this.router.navigate(["/"]);
           }
         },
@@ -104,29 +117,43 @@ export class ManagersService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(
+    token: string,
+    expirationDate: Date,
+    userId: string,
+    city: string,
+    isAdmin: string
+  ) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
+    localStorage.setItem("city", city);
+    localStorage.setItem("isAdmin", isAdmin);
   }
 
   private clearAuthData() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("city");
   }
 
   private getAuthData() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
+    const city = localStorage.getItem("city");
+    const isAdmin = localStorage.getItem("isAdmin");
     if (!token && !expirationDate) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId
+      userId: userId,
+      city: city,
+      isAdmin: isAdmin
     };
   }
 

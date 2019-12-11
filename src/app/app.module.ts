@@ -31,6 +31,7 @@ import { CustomerCreateComponent } from "./customers/customer-create/customer-cr
 import { CustomerListComponent } from "./customers/customer-list/customer-list.component";
 import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
 import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
+import { BillListComponent } from "./bills/bill-list/bill-list.component";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
     CustomerCreateComponent,
     CustomerListComponent,
     CustomerSearchListComponent,
-    BillCreateComponent
+    BillCreateComponent,
+    BillListComponent
   ],
   imports: [
     BrowserModule,

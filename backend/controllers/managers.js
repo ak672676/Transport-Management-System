@@ -218,7 +218,9 @@ exports.loginManager = (req, res, next) => {
       res.status(200).json({
         token: token,
         expiresIn: 3600,
-        managerId: fetchedManager._id
+        managerId: fetchedManager._id,
+        city: fetchedManager.city,
+        isAdmin: fetchedManager.isAdmin
       });
       console.log("LOGIN IN BACKEND");
     })
