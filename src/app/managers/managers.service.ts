@@ -20,6 +20,7 @@ export class ManagersService {
   private userId: string;
   private city: string;
   private isAdmin: string;
+  private managerName: string;
   private authStatusListener = new Subject<boolean>();
 
   /////
@@ -49,6 +50,7 @@ export class ManagersService {
         userId: string;
         city: string;
         isAdmin: string;
+        managerName: string;
       }>("http://localhost:3000/api/managers" + "/login", authData)
       .subscribe(
         response => {
@@ -57,7 +59,8 @@ export class ManagersService {
           if (token) {
             const expiresInDuration = response.expiresIn;
             this.city = response.city;
-            this.isAdmin = response.city;
+            this.isAdmin = response.isAdmin;
+            this.managerName = response.managerName;
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
             this.userId = response.userId;
@@ -72,8 +75,10 @@ export class ManagersService {
               expirationDate,
               this.userId,
               this.city,
-              this.isAdmin
+              this.isAdmin,
+              this.managerName
             );
+            console.log("----->", this.city);
             this.router.navigate(["/"]);
           }
         },
@@ -95,6 +100,9 @@ export class ManagersService {
 
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
+      this.city = authInformation.city;
+      this.isAdmin = authInformation.isAdmin;
+      this.managerName = authInformation.managerName;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
     }
@@ -105,6 +113,9 @@ export class ManagersService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.userId = null;
+    this.city = null;
+    this.isAdmin = null;
+    this.managerName = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(["/"]);
@@ -122,13 +133,15 @@ export class ManagersService {
     expirationDate: Date,
     userId: string,
     city: string,
-    isAdmin: string
+    isAdmin: string,
+    managerName: string
   ) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
     localStorage.setItem("city", city);
     localStorage.setItem("isAdmin", isAdmin);
+    localStorage.setItem("managerName", managerName);
   }
 
   private clearAuthData() {
@@ -137,6 +150,7 @@ export class ManagersService {
     localStorage.removeItem("userId");
     localStorage.removeItem("isAdmin");
     localStorage.removeItem("city");
+    localStorage.removeItem("managerName");
   }
 
   private getAuthData() {
@@ -144,6 +158,7 @@ export class ManagersService {
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
     const city = localStorage.getItem("city");
+    const managerName = localStorage.getItem("managerName");
     const isAdmin = localStorage.getItem("isAdmin");
     if (!token && !expirationDate) {
       return;
@@ -153,7 +168,8 @@ export class ManagersService {
       expirationDate: new Date(expirationDate),
       userId: userId,
       city: city,
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      managerName: managerName
     };
   }
 

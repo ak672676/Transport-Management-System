@@ -1,20 +1,28 @@
 <br />
-<div class="row">
-  <div class="col-lg-6">
-    <mat-card class="billForm">
-      <mat-spinner *ngIf="isLoading"> </mat-spinner>
-      <form [formGroup]="billForm" (submit)="onSaveBill()" *ngIf="!isLoading">
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            formControlName="billId"
-            placeholder="Bill Id"
-          />
-          <mat-error *ngIf="billForm.get('bilId')"> </mat-error>
-        </mat-form-field>
-        <!-- CUSTOMER DATA -->
-        <hr />
+
+<mat-card class="billForm">
+  <mat-spinner *ngIf="isLoading"> </mat-spinner>
+  <form [formGroup]="billForm" (submit)="onSaveBill()" *ngIf="!isLoading">
+    <diV class="row">
+      <mat-form-field style="text-align: center;">
+        <input
+          matInput
+          type="text"
+          formControlName="billId"
+          placeholder="Bill Id"
+        />
+        <mat-error *ngIf="billForm.get('bilId')"> </mat-error>
+      </mat-form-field>
+    </diV>
+
+    <div class="row billForm">
+      <div *ngIf="showCustomerSearchMenu" style="width: 100%;">
+        <app-customer-search-list></app-customer-search-list>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-lg-6">
         <button
           mat-button
           type="button"
@@ -136,8 +144,10 @@
             >Please enter the GST Number</mat-error
           >
         </mat-form-field>
-        <hr />
-        <!-- RECIEVER DATA -->
+      </div>
+      <hr />
+      <!-- RECIEVER DATA -->
+      <div class="col-lg-6">
         <button
           mat-button
           type="button"
@@ -264,31 +274,38 @@
             >Please enter the Reciever GST Number</mat-error
           >
         </mat-form-field>
-        <hr />
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            formControlName="bookingDate"
-            placeholder="Booking Date"
-          />
-          <mat-error *ngIf="billForm.get('bookingDate').invalid"
-            >Please enter the Booking Date</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            formControlName="bookingStatus"
-            placeholder="Booking Status"
-          />
-          <mat-error *ngIf="billForm.get('bookingStatus').invalid"
-            >Please enter the Booking Status</mat-error
-          >
-        </mat-form-field>
-        <hr />
-        <!-- UPDATE STATUS -->
+      </div>
+    </div>
+    <hr />
+    <p style="text-align: center;"><b>Booking Status</b></p>
+    <div class="row billForm">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="bookingDate"
+          placeholder="Booking Date"
+        />
+        <mat-error *ngIf="billForm.get('bookingDate').invalid"
+          >Please enter the Booking Date</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="bookingStatus"
+          placeholder="Booking Status"
+        />
+        <mat-error *ngIf="billForm.get('bookingStatus').invalid"
+          >Please enter the Booking Status</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <hr />
+    <!-- UPDATE STATUS -->
+    <div class="row">
+      <div class="col-lg-6">
         <p style="text-align: center;"><b>Update Status</b></p>
         <div>
           <div
@@ -324,8 +341,10 @@
             Add Current City
           </button>
         </div>
-        <!-- ADD ITEMS -->
-        <hr />
+      </div>
+      <!-- ADD ITEMS -->
+      <hr />
+      <div class="col-lg-6">
         <p style="text-align: center;"><b>Items</b></p>
         <div>
           <div
@@ -369,22 +388,20 @@
           <button (click)="addItemToGroup()" color="primary" mat-raised-button>
             Add Item
           </button>
+          <br />
+          <br />
+          <p><b> AMOUNT:</b></p>
         </div>
         <!-- Submission to the server -->
-        <br />
-        <hr />
-        <p>AMOUNT</p>
-        <button color="primary" mat-raised-button type="submit">
-          Save Bill
-        </button>
-      </form>
-    </mat-card>
-    <pre> {{ billForm.value | json }} </pre>
-  </div>
-
-  <div class="col-lg-6">
-    <div class="billForm" *ngIf="showCustomerSearchMenu">
-      <app-customer-search-list></app-customer-search-list>
+      </div>
+      <br />
     </div>
-  </div>
-</div>
+    <hr />
+    <div style="text-align: center;">
+      <button color="primary" mat-raised-button type="submit">
+        Save Bill
+      </button>
+    </div>
+  </form>
+</mat-card>
+<!-- <pre> {{ billForm.value | json }} </pre> -->

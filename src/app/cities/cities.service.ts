@@ -30,6 +30,7 @@ export class CitiesService {
         })
       )
       .subscribe(transformedCities => {
+        console.log(transformedCities);
         this.cities = transformedCities;
         this.citiesUpdated.next([...this.cities]);
       });

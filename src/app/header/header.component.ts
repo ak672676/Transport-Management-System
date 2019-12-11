@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.css"]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   constructor(private authService: ManagersService) {}
@@ -17,6 +17,7 @@ export class HeaderComponent {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        //console.log("Loggin->", this.authService.isAdmin);
       });
   }
   onLogout() {

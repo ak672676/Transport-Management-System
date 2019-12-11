@@ -215,12 +215,14 @@ exports.loginManager = (req, res, next) => {
       );
       console.log(token);
       console.log("LOGIN IN BACKEND");
+      console.log("Backend Manager-->", fetchedManager);
       res.status(200).json({
         token: token,
         expiresIn: 3600,
         managerId: fetchedManager._id,
-        city: fetchedManager.city,
-        isAdmin: fetchedManager.isAdmin
+        city: fetchedManager.workingCity,
+        isAdmin: fetchedManager.isAdmin,
+        managerName: fetchedManager.name
       });
       console.log("LOGIN IN BACKEND");
     })

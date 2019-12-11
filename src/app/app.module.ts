@@ -9,7 +9,10 @@ import {
   MatButtonModule,
   MatToolbarModule,
   MatExpansionModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTooltipModule,
+  MatSidenavModule,
+  MatListModule
 } from "@angular/material";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
@@ -32,6 +35,7 @@ import { CustomerListComponent } from "./customers/customer-list/customer-list.c
 import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
 import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
 import { BillListComponent } from "./bills/bill-list/bill-list.component";
+//import { SideBarComponent } from "./sidebar/sidebar.component";
 
 @NgModule({
   declarations: [
@@ -67,7 +71,9 @@ import { BillListComponent } from "./bills/bill-list/bill-list.component";
     MatSelectModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatTooltipModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
