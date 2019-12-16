@@ -47,9 +47,6 @@ export class TruckCreateComponent implements OnInit {
       }),
       lastServiceDate: new FormControl(null, {
         validators: [Validators.required]
-      }),
-      driverName: new FormControl(null, {
-        validators: [Validators.required]
       })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -63,6 +60,7 @@ export class TruckCreateComponent implements OnInit {
           this.isLoading = false;
           this.truck = {
             id: truckData._id,
+            truckId: truckData.truckId,
             make: truckData.make,
             model: truckData.model,
             chassisNo: truckData.chassisNo,
@@ -70,7 +68,9 @@ export class TruckCreateComponent implements OnInit {
             insCompany: truckData.insCompany,
             insNumber: truckData.insNumber,
             lastServiceDate: truckData.lastServiceDate,
-            driverName: truckData.driverName
+            driverName: truckData.driverName,
+            driverId: truckData.driverId,
+            billsForTheTruck: truckData.billsForTheTruck
           };
           this.form.setValue({
             make: this.truck.make,
@@ -79,8 +79,7 @@ export class TruckCreateComponent implements OnInit {
             vehicleNo: this.truck.vehicleNo,
             insCompany: this.truck.insCompany,
             insNumber: this.truck.insNumber,
-            lastServiceDate: this.truck.lastServiceDate,
-            driverName: this.truck.driverName
+            lastServiceDate: this.truck.lastServiceDate
           });
         });
       } else {
@@ -114,12 +113,12 @@ export class TruckCreateComponent implements OnInit {
         this.form.value.vehicleNo,
         this.form.value.insCompany,
         this.form.value.insNumber,
-        this.form.value.lastServiceDate,
-        this.form.value.driverName
+        this.form.value.lastServiceDate
       );
     } else {
       this.trucksService.updateTruck(
         this.truckId,
+        this.truck.truckId,
         this.form.value.make,
         this.form.value.model,
         this.form.value.chassisNo,
@@ -127,7 +126,9 @@ export class TruckCreateComponent implements OnInit {
         this.form.value.insCompany,
         this.form.value.insNumber,
         this.form.value.lastServiceDate,
-        this.form.value.driverName
+        this.form.value.driverName,
+        this.form.value.driverId,
+        this.form.value.billsForTheTruck
       );
     }
     // const post: Post = {

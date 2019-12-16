@@ -57,7 +57,9 @@ export class BillsService {
             r_gstNo: billForServer.r_gstNo,
             bookingDate: billForServer.bookingDate,
             bookingStatus: billForServer.bookingStatus,
+
             routeCovered: billForServer.routeCovered,
+
             items: billForServer.items
           };
           // console.log("//////////////////////////");

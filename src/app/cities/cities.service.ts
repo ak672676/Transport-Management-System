@@ -20,11 +20,15 @@ export class CitiesService {
         map(cityData => {
           return cityData.cities.map(city => {
             return {
-              cityName: city.cityName,
-              landmark: city.landmark,
               id: city._id,
+              cityId: city.cityId,
+              landmark: city.landmark,
+              cityName: city.cityName,
+              state: city.state,
+              country: city.country,
               pin: city.pin,
-              manager: city.manager
+              phone: city.phone,
+              billsForTheCity: city.billsForTheCity
             };
           });
         })
@@ -43,19 +47,47 @@ export class CitiesService {
   getCity(id: string) {
     return this.http.get<{
       _id: string;
-      cityName: string;
+      cityId: string;
       landmark: string;
+      cityName: string;
+      state: string;
+      country: string;
       pin: string;
-      manager: string;
+      phone: string;
+      billsForTheCity: [{ id: string; billId: string }];
     }>("http://localhost:3000/api/cities/" + id);
   }
 
-  addCity(cityName: string, landmark: string, pin: string, manager: string) {
+  getCityByCityName(cityName: string) {
+    console.log("CItyName", cityName);
+    return this.http.get<{
+      _id: string;
+      cityId: string;
+      landmark: string;
+      cityName: string;
+      state: string;
+      country: string;
+      pin: string;
+      phone: string;
+      billsForTheCity: [{ id: string; billId: string }];
+    }>("http://localhost:3000/api/cities/bills/" + cityName);
+  }
+
+  addCity(
+    landmark: string,
+    cityName: string,
+    state: string,
+    country: string,
+    pin: string,
+    phone: string
+  ) {
     const cityData = {
-      cityName: cityName,
       landmark: landmark,
+      cityName: cityName,
+      state: state,
+      country: country,
       pin: pin,
-      manager: manager
+      phone: phone
     };
 
     //console.log(cityName);
@@ -68,11 +100,16 @@ export class CitiesService {
       .subscribe(responseData => {
         const city: City = {
           id: responseData.city.id,
-          cityName: cityName,
+          cityId: responseData.city.cityId,
           landmark: landmark,
+          cityName: cityName,
+          state: state,
+          country: country,
           pin: pin,
-          manager: manager
+          phone: phone,
+          billsForTheCity: null
         };
+
         this.cities.push(city);
         this.citiesUpdated.next([...this.cities]);
         this.router.navigate(["/"]);
@@ -81,18 +118,27 @@ export class CitiesService {
 
   updateCity(
     id: string,
-    cityName: string,
+    cityId: string,
     landmark: string,
+    cityName: string,
+    state: string,
+    country: string,
     pin: string,
-    manager: string
+    phone: string,
+    billsForTheCity: [{ id: string; billId: string }]
   ) {
     const city: City = {
       id: id,
-      cityName: cityName,
+      cityId: cityId,
       landmark: landmark,
+      cityName: cityName,
+      state: state,
+      country: country,
       pin: pin,
-      manager: manager
+      phone: phone,
+      billsForTheCity: billsForTheCity
     };
+
     this.http
       .put("http://localhost:3000/api/cities/" + id, city)
       .subscribe(response => {

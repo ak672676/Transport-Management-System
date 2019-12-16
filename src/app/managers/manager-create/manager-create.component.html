@@ -63,7 +63,7 @@
         >Please enter the Password</mat-error
       >
     </mat-form-field>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input
         matInput
         type="text"
@@ -72,6 +72,21 @@
       />
       <mat-error *ngIf="form.get('workingCity').invalid"
         >Please enter the workingCity</mat-error
+      >
+    </mat-form-field> -->
+    <mat-form-field>
+      <mat-select
+        matInput
+        formControlName="workingCity"
+        placeholder="workingCity"
+        #singleSelect
+      >
+        <mat-option *ngFor="let city of citiesList" [value]="city.cityName">
+          {{ city.cityName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('workingCity').invalid"
+        >Please enter the City</mat-error
       >
     </mat-form-field>
     <div>

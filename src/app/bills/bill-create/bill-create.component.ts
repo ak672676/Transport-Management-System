@@ -122,7 +122,8 @@ export class BillCreateComponent {
       }),
       date: new FormControl(null, {
         validators: [Validators.required]
-      })
+      }),
+      recieved: new FormControl(true)
     });
   }
 
@@ -169,6 +170,8 @@ export class BillCreateComponent {
       this.customerUniqueId,
       this.recieverUniqueId
     );
+    console.log("on bill save");
+    console.log(this.billForm.value);
     this.billForm.reset();
   }
 
@@ -263,7 +266,7 @@ export class BillCreateComponent {
     var dateTime = date + " " + time;
     (<FormArray>this.billForm.get("routeCovered")).controls[0]
       .get("city")
-      .setValue("Berhampur");
+      .setValue(this.billForm.get("city").value);
     (<FormArray>this.billForm.get("routeCovered")).controls[0]
       .get("time")
       .setValue(time);

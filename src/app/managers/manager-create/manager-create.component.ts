@@ -3,9 +3,11 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 
 import { ManagersService } from "../managers.service";
-import { Manager } from "../manager.model";
+import { CitiesService } from "../../cities/cities.service";
 import { mimeType } from "./mime-type.validator";
-import { Subscription } from "rxjs";
+import { Subscription, from } from "rxjs";
+import { Manager } from "../manager.model";
+import { City } from "../../cities/city.model";
 
 @Component({
   selector: "app-manager-create",
@@ -22,14 +24,25 @@ export class ManagerCreateComponent implements OnInit {
   private managerId: string;
   manager: Manager;
 
-  private authStatusSub: Subscription;
+  citiesList: City[] = [];
 
+  private authStatusSub: Subscription;
+  private citiesSub: Subscription;
   constructor(
     public managersService: ManagersService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public citiesService: CitiesService
   ) {}
 
   ngOnInit() {
+    this.citiesService.getCities();
+    this.citiesSub = this.citiesService
+      .getCityUpdateListener()
+      .subscribe((cities: City[]) => {
+        this.isLoading = false;
+        this.citiesList = cities;
+      });
+
     this.authStatusSub = this.managersService
       .getAuthStatusListener()
       .subscribe(authStatus => {

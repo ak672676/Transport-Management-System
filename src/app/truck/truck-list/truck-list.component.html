@@ -1,0 +1,25 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="trucks.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let truck of trucks">
+    <mat-expansion-panel-header>
+      {{ truck.truckId }}
+    </mat-expansion-panel-header>
+
+    <p>Make<b>: </b>{{ truck.make }}</p>
+    <p>Model<b>: </b>{{ truck.model }}</p>
+    <!-- <p><b>Phone: </b>{{ driver.phone }}</p>
+    <p><b>Address: </b>{{ driver.address }}</p>
+    <p><b>drivingLic: </b>{{ driver.drivingLic }}</p>
+    <p><b>Adhar No: </b>{{ driver.adharNo }}</p>
+    <p><b>vehicleNo: </b>{{ driver.vehicleNo }}</p> -->
+    <mat-action-row>
+      <a color="primary" mat-button [routerLink]="['edit', truck.id]">Edit</a>
+      <button color="warn" (click)="onDelete(truck.id)" mat-button>
+        Delete
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="trucks.length <= 0 && !isLoading">
+  No truck added yet
+</p>

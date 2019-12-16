@@ -21,6 +21,8 @@ export class TrucksService {
         map(truckData => {
           return truckData.trucks.map(truck => {
             return {
+              id: truck._id,
+              truckId: truck.truckId,
               make: truck.make,
               model: truck.model,
               chassisNo: truck.chassisNo,
@@ -28,8 +30,9 @@ export class TrucksService {
               insCompany: truck.insCompany,
               insNumber: truck.insNumber,
               lastServiceDate: truck.lastServiceDate,
-              id: truck._id,
-              driverName: truck.driverName
+              driverName: truck.driverName,
+              driverId: truck.driverId,
+              billsForTheTruck: truck.billsForTheTruck
             };
           });
         })
@@ -48,6 +51,7 @@ export class TrucksService {
     //return { ...this.posts.find(p => p.id === id) };
     return this.http.get<{
       _id: string;
+      truckId: string;
       make: string;
       model: string;
       chassisNo: string;
@@ -56,6 +60,8 @@ export class TrucksService {
       insNumber: string;
       lastServiceDate: string;
       driverName: string;
+      driverId: string;
+      billsForTheTruck: [{ id: string; billId: string }];
     }>("http://localhost:3000/api/trucks/" + id);
   }
 
@@ -66,19 +72,27 @@ export class TrucksService {
     vehicleNo: string,
     insCompany: string,
     insNumber: string,
-    lastServiceDate: string,
-    driverName: string
+    lastServiceDate: string
   ) {
     //const post: Post = { id: null, title: title, content: content };
-    const truckData = new FormData();
-    truckData.append("make", make);
-    truckData.append("model", model);
-    truckData.append("chassisNo", chassisNo);
-    truckData.append("vehicleNo", vehicleNo);
-    truckData.append("insCompany", insCompany);
-    truckData.append("insNumber", insNumber);
-    truckData.append("lastServiceDate", lastServiceDate);
-    truckData.append("driveName", driverName);
+    const truckData = {
+      make: make,
+      model: model,
+      chassisNo: chassisNo,
+      vehicleNo: vehicleNo,
+      insCompany: insCompany,
+      insNumber: insNumber,
+      lastServiceDate: lastServiceDate
+    };
+    // truckData.append("make", make);
+    // truckData.append("model", model);
+    // truckData.append("chassisNo", chassisNo);
+    // truckData.append("vehicleNo", vehicleNo);
+    // truckData.append("insCompany", insCompany);
+    // truckData.append("insNumber", insNumber);
+    // truckData.append("lastServiceDate", lastServiceDate);
+    // truckData.append("driveName", driverName);
+
     this.http
       .post<{ message: string; truck: Truck }>(
         "http://localhost:3000/api/trucks",
@@ -87,6 +101,7 @@ export class TrucksService {
       .subscribe(responseData => {
         const truck: Truck = {
           id: responseData.truck.id,
+          truckId: responseData.truck.truckId,
           make: make,
           model: model,
           chassisNo: chassisNo,
@@ -94,7 +109,9 @@ export class TrucksService {
           insCompany: insCompany,
           insNumber: insNumber,
           lastServiceDate: lastServiceDate,
-          driverName: driverName
+          driverName: null,
+          driverId: null,
+          billsForTheTruck: null
         };
         this.trucks.push(truck);
         this.trucksUpdated.next([...this.trucks]);
@@ -104,6 +121,7 @@ export class TrucksService {
 
   updateTruck(
     id: string,
+    truckId: string,
     make: string,
     model: string,
     chassisNo: string,
@@ -111,10 +129,13 @@ export class TrucksService {
     insCompany: string,
     insNumber: string,
     lastServiceDate: string,
-    driverName: string
+    driverName: string,
+    driverId: string,
+    billsForTheTruck: [{ id: string; billId: string }]
   ) {
     const truck: Truck = {
       id: id,
+      truckId: truckId,
       make: make,
       model: model,
       chassisNo: chassisNo,
@@ -122,7 +143,9 @@ export class TrucksService {
       insCompany: insCompany,
       insNumber: insNumber,
       lastServiceDate: lastServiceDate,
-      driverName: driverName
+      driverName: driverName,
+      driverId: driverId,
+      billsForTheTruck: billsForTheTruck
     };
     this.http
       .put("http://localhost:3000/api/trucks/" + id, truck)

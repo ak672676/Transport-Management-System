@@ -8,7 +8,7 @@
 
     <p><b>PIN</b> {{ city.pin }}</p>
 
-    <p><b>Manager</b> {{ city.manager }}</p>
+    <p><b>Manager</b> {{ city.phone }}</p>
     <mat-action-row>
       <a color="primary" mat-button [routerLink]="['edit', city.id]">Edit</a>
       <button color="warn" (click)="onDelete(city.id)" mat-button>

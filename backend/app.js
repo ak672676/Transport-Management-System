@@ -8,6 +8,7 @@ const managersRoutes = require("./routes/managers");
 const driversRoutes = require("./routes/drivers");
 const customersRoutes = require("./routes/customers");
 const billsRoutes = require("./routes/bills");
+const trucksRoutes = require("./routes/trucks");
 //const Customer = require("./models/customer");
 
 const app = express();
@@ -46,5 +47,6 @@ app.use("/api/managers", managersRoutes);
 app.use("/api/drivers", driversRoutes);
 app.use("/api/customers", customersRoutes);
 app.use("/api/bills", billsRoutes);
+app.use("/api/trucks", trucksRoutes);
 
 module.exports = app;

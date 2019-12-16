@@ -26,7 +26,18 @@ const billSchema = mongoose.Schema({
   r_gstNo: { type: String, required: false },
   bookingDate: { type: String },
   bookingStatus: { type: String },
-  routeCovered: [{ city: String, time: String, date: String }],
+  routeCovered: [
+    {
+      city: String,
+      time: String,
+      date: String,
+      recieved: Boolean,
+      d_city: String,
+      d_time: String,
+      d_date: String,
+      dispached: Boolean
+    }
+  ],
   items: [{ description: String, numberOfPackage: String, cost: String }]
 });
 

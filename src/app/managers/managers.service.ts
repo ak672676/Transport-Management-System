@@ -18,7 +18,7 @@ export class ManagersService {
   private token: string;
   private tokenTimer: any;
   private userId: string;
-  private city: string;
+  public city: string;
   private isAdmin: string;
   private managerName: string;
   private authStatusListener = new Subject<boolean>();

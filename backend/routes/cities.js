@@ -34,11 +34,14 @@ router.post("", (req, res, next) => {
   //const url = req.protocol + "://" + req.get("host");
   console.log("----> " + req.body.cityName);
   const city = new City({
-    cityName: req.body.cityName,
+    cityId: null,
     landmark: req.body.landmark,
+    cityName: req.body.cityName,
+    state: req.body.state,
+    country: req.body.country,
     pin: req.body.pin,
-    manager: req.body.manager
-    //imagePath: url + "/images/" + req.file.filename
+    phone: req.body.phone,
+    billsForTheCity: []
   });
 
   city.save().then(createdCity => {
@@ -46,10 +49,11 @@ router.post("", (req, res, next) => {
       message: "City Added Successfully",
       city: {
         ...createdCity,
-        id: createdCity._id
+        id: createdCity._id,
+        cityId: createdCity.cityId
       }
     });
-    console.log(createdCity);
+    console.log("Created City Backend->>", createdCity);
   });
 });
 
@@ -61,13 +65,17 @@ mongodb+srv://amit:zghncvdBeMKaxxDu@cluster0-nhmu0.mongodb.net/test?retryWrites=
 router.put("/:id", (req, res, next) => {
   const city = new City({
     _id: req.body.id,
-    cityName: req.body.cityName,
+    cityId: req.body.cityId,
     landmark: req.body.landmark,
+    cityName: req.body.cityName,
+    state: req.body.state,
+    country: req.body.country,
     pin: req.body.pin,
-    manager: req.body.manager
+    phone: req.body.phone,
+    billsForTheCity: req.body.billsForTheCity
   });
+
   City.updateOne({ _id: req.params.id }, city).then(result => {
-    //console.log(result);
     res.status(200).json({ message: "Update Successful" });
   });
 });
@@ -96,6 +104,17 @@ router.delete("/:id", (req, res, next) => {
   City.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({ message: "City deleted" });
+  });
+});
+
+router.get("/bills/:cityName", (req, res, next) => {
+  City.findOne({ cityName: req.params.cityName }).then(city => {
+    if (city) {
+      console.log("------------------------->", city);
+      res.status(200).json(city);
+    } else {
+      res.status(404).json({ message: "City not found" });
+    }
   });
 });
 

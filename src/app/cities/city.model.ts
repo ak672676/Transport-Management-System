@@ -1,7 +1,11 @@
 export interface City {
   id: string;
-  cityName: string;
+  cityId: string;
   landmark: string;
+  cityName: string;
+  state: string;
+  country: string;
   pin: string;
-  manager: string;
+  phone: string;
+  billsForTheCity: [{ id: string; billId: string }];
 }

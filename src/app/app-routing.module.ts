@@ -14,6 +14,8 @@ import { CustomerListComponent } from "./customers/customer-list/customer-list.c
 import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
 import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
 import { BillListComponent } from "./bills/bill-list/bill-list.component";
+import { TruckListComponent } from "./truck/truck-list/truck-list.component";
+import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.component";
 
 const routes: Routes = [
   { path: "city", component: CityListComponent },
@@ -25,14 +27,17 @@ const routes: Routes = [
   { path: "driver", component: DriverListComponent },
   { path: "driver/create", component: DriverCreateComponent },
   { path: "driver/edit/:driverId", component: DriverCreateComponent },
-  { path: "truck/create", component: TruckCreateComponent },
   { path: "login", component: ManagerLoginComponent },
   { path: "customer/create", component: CustomerCreateComponent },
   { path: "customer/edit/:customerId", component: CustomerCreateComponent },
   { path: "customer", component: CustomerListComponent },
   { path: "customer/search", component: CustomerSearchListComponent },
   { path: "bill/create", component: BillCreateComponent },
-  { path: "bill", component: BillListComponent }
+  { path: "bill", component: BillListComponent },
+  { path: "truck/create", component: TruckCreateComponent },
+  { path: "truck", component: TruckListComponent },
+  { path: "truck/edit/:truckId", component: TruckCreateComponent },
+  { path: "city/billlist", component: CityBillListComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -36,8 +36,23 @@
         >Please enter the Street</mat-error
       >
     </mat-form-field>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="text" formControlName="city" placeholder="City" />
+      <mat-error *ngIf="form.get('city').invalid"
+        >Please enter the City</mat-error
+      >
+    </mat-form-field> -->
+    <mat-form-field>
+      <mat-select
+        matInput
+        formControlName="city"
+        placeholder="City"
+        #singleSelect
+      >
+        <mat-option *ngFor="let city of citiesList" [value]="city.cityName">
+          {{ city.cityName }}
+        </mat-option>
+      </mat-select>
       <mat-error *ngIf="form.get('city').invalid"
         >Please enter the City</mat-error
       >

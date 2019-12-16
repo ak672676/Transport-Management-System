@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Customer } from "../customer.model";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { CustomersService } from "../customers.service";
+import { CitiesService } from "../../cities/cities.service";
+import { City } from "../../cities/city.model";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-customer-create",
@@ -18,12 +21,24 @@ export class CustomerCreateComponent {
   private customerId: string;
   customer: Customer;
   name: string;
+  citiesList: City[] = [];
+
+  private citiesSub: Subscription;
   constructor(
     public customersService: CustomersService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public citiesService: CitiesService
   ) {}
 
   ngOnInit() {
+    this.citiesService.getCities();
+    this.citiesSub = this.citiesService
+      .getCityUpdateListener()
+      .subscribe((cities: City[]) => {
+        this.isLoading = false;
+        this.citiesList = cities;
+      });
+    console.log(this.citiesList);
     this.form = new FormGroup({
       customerName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)]
@@ -38,7 +53,7 @@ export class CustomerCreateComponent {
       state: new FormControl(null, {
         validators: [Validators.required]
       }),
-      country: new FormControl(null, {
+      country: new FormControl("India", {
         validators: [Validators.required]
       }),
       pin: new FormControl(null, {

@@ -12,7 +12,8 @@ import {
   MatProgressSpinnerModule,
   MatTooltipModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatCheckboxModule
 } from "@angular/material";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
@@ -35,6 +36,8 @@ import { CustomerListComponent } from "./customers/customer-list/customer-list.c
 import { CustomerSearchListComponent } from "./customers/customer-search/customer-search-list.component";
 import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
 import { BillListComponent } from "./bills/bill-list/bill-list.component";
+import { TruckListComponent } from "./truck/truck-list/truck-list.component";
+import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.component";
 //import { SideBarComponent } from "./sidebar/sidebar.component";
 
 @NgModule({
@@ -49,13 +52,15 @@ import { BillListComponent } from "./bills/bill-list/bill-list.component";
     DriverCreateComponent,
     DriverListComponent,
     TruckCreateComponent,
+    TruckListComponent,
     AdminLoginComponent,
     ManagerLoginComponent,
     CustomerCreateComponent,
     CustomerListComponent,
     CustomerSearchListComponent,
     BillCreateComponent,
-    BillListComponent
+    BillListComponent,
+    CityBillListComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,8 @@ import { BillListComponent } from "./bills/bill-list/bill-list.component";
     BrowserAnimationsModule,
     FormsModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

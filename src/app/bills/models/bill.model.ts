@@ -28,6 +28,17 @@ export interface Bill {
   r_gstNo: string;
   bookingDate: string;
   bookingStatus: string;
-  routeCovered: [{ city: string; time: string; date: string }];
+  routeCovered: [
+    {
+      city: string;
+      time: string;
+      date: string;
+      recieved: boolean;
+      d_city: string;
+      d_time: string;
+      d_date: string;
+      dispached: boolean;
+    }
+  ];
   items: [{ description: string; numberOfPackage: string; cost: string }];
 }

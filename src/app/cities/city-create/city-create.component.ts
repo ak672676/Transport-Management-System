@@ -22,6 +22,7 @@ export class CityCreateComponent implements OnInit {
   private cityId: string;
   city: City;
 
+  billsForTheCity: any;
   constructor(
     public citiesService: CitiesService,
     public route: ActivatedRoute
@@ -29,16 +30,22 @@ export class CityCreateComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
+      landmark: new FormControl(null, {
+        validators: [Validators.required]
+      }),
       cityName: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)]
       }),
-      landmark: new FormControl(null, {
+      state: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      country: new FormControl(null, {
         validators: [Validators.required]
       }),
       pin: new FormControl(null, {
         validators: [Validators.required]
       }),
-      manager: new FormControl(null, {
+      phone: new FormControl(null, {
         validators: [Validators.required]
       })
     });
@@ -53,16 +60,23 @@ export class CityCreateComponent implements OnInit {
           this.isLoading = false;
           this.city = {
             id: cityData._id,
-            cityName: cityData.cityName,
+            cityId: cityData.cityId,
             landmark: cityData.landmark,
+            cityName: cityData.cityName,
+            state: cityData.state,
+            country: cityData.country,
             pin: cityData.pin,
-            manager: cityData.manager
+            phone: cityData.phone,
+            billsForTheCity: cityData.billsForTheCity
           };
+          this.billsForTheCity = cityData.billsForTheCity;
           this.form.setValue({
-            cityName: this.city.cityName,
             landmark: this.city.landmark,
+            cityName: this.city.cityName,
+            state: this.city.state,
+            country: this.city.country,
             pin: this.city.pin,
-            manager: this.city.manager
+            phone: this.city.phone
           });
         });
       } else {
@@ -79,20 +93,25 @@ export class CityCreateComponent implements OnInit {
     this.isLoading = true;
     if (this.mode === "create") {
       this.citiesService.addCity(
-        this.form.value.cityName,
         this.form.value.landmark,
+        this.form.value.cityName,
+        this.form.value.state,
+        this.form.value.country,
         this.form.value.pin,
-        this.form.value.manager
+        this.form.value.phone
       );
       //console.log(this.form.value.cityName);
-      console.log("Added");
     } else {
       this.citiesService.updateCity(
-        this.cityId,
-        this.form.value.cityName,
+        this.city.id,
+        this.city.cityId,
         this.form.value.landmark,
+        this.form.value.cityName,
+        this.form.value.state,
+        this.form.value.country,
         this.form.value.pin,
-        this.form.value.manager
+        this.form.value.phone,
+        this.city.billsForTheCity
       );
     }
     this.form.reset();
