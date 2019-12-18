@@ -38,6 +38,7 @@ import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
 import { BillListComponent } from "./bills/bill-list/bill-list.component";
 import { TruckListComponent } from "./truck/truck-list/truck-list.component";
 import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.component";
+import { BillUpdateComponent } from "./bills/bill-update/bill-update.component";
 //import { SideBarComponent } from "./sidebar/sidebar.component";
 
 @NgModule({
@@ -60,7 +61,8 @@ import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.
     CustomerSearchListComponent,
     BillCreateComponent,
     BillListComponent,
-    CityBillListComponent
+    CityBillListComponent,
+    BillUpdateComponent
   ],
   imports: [
     BrowserModule,

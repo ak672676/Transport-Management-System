@@ -16,6 +16,7 @@ import { BillCreateComponent } from "./bills/bill-create/bill-create.component";
 import { BillListComponent } from "./bills/bill-list/bill-list.component";
 import { TruckListComponent } from "./truck/truck-list/truck-list.component";
 import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.component";
+import { BillUpdateComponent } from "./bills/bill-update/bill-update.component";
 
 const routes: Routes = [
   { path: "city", component: CityListComponent },
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: "truck/create", component: TruckCreateComponent },
   { path: "truck", component: TruckListComponent },
   { path: "truck/edit/:truckId", component: TruckCreateComponent },
-  { path: "city/billlist", component: CityBillListComponent }
+  { path: "city/billlist", component: CityBillListComponent },
+  { path: "bill/update/:billId", component: BillUpdateComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

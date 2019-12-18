@@ -9,6 +9,10 @@ const router = express.Router();
 
 router.post("", BillController.createBill);
 
+router.put("/:id", BillController.updateBill);
+
 router.get("", BillController.getBills);
+
+router.get("/:id", BillController.getBill);
 
 module.exports = router;

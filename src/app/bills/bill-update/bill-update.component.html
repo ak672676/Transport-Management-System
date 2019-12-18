@@ -1,0 +1,99 @@
+<br />
+<mat-card>
+  <div class="row">
+    <mat-spinner *ngIf="isLoading"> </mat-spinner>
+  </div>
+  <div *ngIf="bill">
+    <div class="row">
+      <div style="text-align: center; margin-left: 450px;">
+        <h5 class="display-4">
+          <u><b>Bill Id:</b>{{ bill.billId }}</u>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 rounded" style="border: 2px solid red;">
+        <div>Sender</div>
+        <div><b>Name:</b> {{ bill.customerName }}</div>
+        <div><b>City:</b> {{ bill.city }}</div>
+      </div>
+      <div class="col-lg-6 rounded" style="border: 2px solid red;">
+        <div>Reciever</div>
+        <div><b>Name:</b> {{ bill.r_customerName }}</div>
+        <div><b>City:</b> {{ bill.r_city }}</div>
+      </div>
+    </div>
+    <div *ngIf="bill.routeCovered[indexOfRoute].recieved">Recieved</div>
+    <div *ngIf="!bill.routeCovered[indexOfRoute].recieved">Not Recieved</div>
+    <div class="row">
+      <button
+        mat-button
+        color="primary"
+        type="button"
+        mat-raised-button
+        (click)="onBillRecieved()"
+      >
+        Bill Recieved
+      </button>
+      <div style="text-align: center;">
+        <button mat-button type="button" mat-raised-button (click)="onupdate()">
+          Update
+        </button>
+      </div>
+    </div>
+    <div *ngIf="openUpdateDiv">
+      <br />
+
+      <form [formGroup]="form" (submit)="onBillUpdate()" *ngIf="!isLoading">
+        <mat-form-field>
+          <mat-select
+            matInput
+            formControlName="d_city"
+            placeholder="City"
+            #singleSelect
+          >
+            <mat-option *ngFor="let city of citiesList" [value]="city.cityName">
+              {{ city.cityName }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('d_city').invalid"
+            >Please enter the City</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="d_date"
+            placeholder="Date"
+          />
+          <mat-error *ngIf="form.get('d_date').invalid"
+            >Please enter the Date</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="d_time"
+            placeholder="Time"
+          />
+          <mat-error *ngIf="form.get('d_time').invalid"
+            >Please enter the Time</mat-error
+          >
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          *ngIf="!isLoading"
+        >
+          Update Bill
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <br />
+</mat-card>

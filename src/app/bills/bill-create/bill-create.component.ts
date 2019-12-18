@@ -123,7 +123,7 @@ export class BillCreateComponent {
       date: new FormControl(null, {
         validators: [Validators.required]
       }),
-      recieved: new FormControl(true)
+      recieved: new FormControl(false)
     });
   }
 
