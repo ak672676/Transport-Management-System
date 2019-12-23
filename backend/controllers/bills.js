@@ -166,6 +166,84 @@ exports.updateBill = (req, res, next) => {
       });
     });
 };
+
+exports.updateBillCity = (req, res, next) => {
+  console.log("------------->", req.body.bill);
+  console.log("------------->", req.body.cityToUpdate);
+
+  const bill = new Bill({
+    _id: req.body.bill.id,
+    billId: req.body.bill.billId,
+    customerUniqueId: req.body.bill.customerUniqueId,
+    customerId: req.body.bill.customerId,
+    customerName: req.body.bill.customerName,
+    street: req.body.bill.street,
+    city: req.body.bill.city,
+    state: req.body.bill.state,
+    country: req.body.bill.country,
+    pin: req.body.bill.pin,
+    phone: req.body.bill.phone,
+    email: req.body.bill.email,
+    gstNo: req.body.bill.gstNo,
+    recieverUniqueId: req.body.bill.recieverUniqueId,
+    r_customerId: req.body.bill.r_customerId,
+    r_customerName: req.body.bill.r_customerName,
+    r_street: req.body.bill.r_street,
+    r_city: req.body.bill.r_city,
+    r_state: req.body.bill.r_state,
+    r_country: req.body.bill.r_country,
+    r_pin: req.body.bill.r_pin,
+    r_phone: req.body.bill.r_phone,
+    r_email: req.body.bill.r_email,
+    r_gstNo: req.body.bill.r_gstNo,
+    bookingDate: req.body.bill.bookingDate,
+    bookingStatus: req.body.bill.bookingStatus,
+    routeCovered: req.body.bill.routeCovered.splice(
+      0,
+      req.body.bill.routeCovered.length
+    ),
+    items: req.body.bill.items.splice(0, req.body.bill.items.length)
+  });
+
+  Bill.updateOne({ _id: req.body.bill.id }, bill).then(createdBill => {
+    console.log(createdBill);
+    console.log("================================");
+    City.findOne({ cityName: req.body.cityToUpdate }).then(city => {
+      if (city) {
+        console.log("This is the city to Fill the BillId", city);
+
+        city.billsForTheCity.push({
+          id: req.body.bill.id,
+          billId: req.body.bill.billId
+        });
+        console.log("------------------>", city.billsForTheCity, "---->");
+        City.updateOne({ _id: city._id }, city)
+          .then(result => {
+            if (result.n > 0) {
+              res.status(201).json({
+                message: "Bill added Successfuly",
+                bill: {
+                  ...createdBill,
+                  id: createdBill._id,
+                  customerUniqueId: createdBill.customerUniqueId,
+                  recieverUniqueId: createdBill.recieverUniqueId,
+                  billId: createdBill.billId
+                }
+              });
+              console.log("FROM BACEND UPDATES THE BACKEND");
+            } else {
+              res.status(401).json({ message: "Not Authorized" });
+            }
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: "Couldn't update the post"
+            });
+          });
+      }
+    });
+  });
+};
 // exports.createBill = (req, res, next) => {
 //   // const url = req.protocol + "://" + req.get("host");
 //   const bill = new Bill({

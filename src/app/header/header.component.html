@@ -17,15 +17,20 @@
 
 <mat-toolbar class="header-background">
   <span><a routerLink="/">TMS</a></span>
+
   <span class="spacer"></span>
   <ul>
     <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">
+        <i class="glyphicon glyphicon-log-in" style="margin-top:-8px;"></i>
+        Login</a
+      >
     </li>
 
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()" matTooltip="Out of System">
-        Logout
+        <i class="glyphicon glyphicon-log-out" style="margin-top:-8px;"></i
+        >Logout
       </button>
     </li>
     <li *ngIf="userIsAuthenticated">
@@ -35,6 +40,7 @@
         color="primary"
         matTooltip="Admin"
       >
+        <i class="glyphicon glyphicon-user" style="margin-top:-8px;"></i>
         {{ authService.managerName }}
       </button>
       <button
@@ -42,11 +48,13 @@
         mat-raised-button
         matTooltip="Manager"
       >
+        <i class="glyphicon glyphicon-user" style="margin-top:-8px;"></i>
         {{ authService.managerName }}
       </button>
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-raised-button color="primary" matTooltip="Office">
+        <i class="glyphicon glyphicon-home" style="margin-top:-8px;"></i>
         {{ authService.city }}
       </button>
     </li>

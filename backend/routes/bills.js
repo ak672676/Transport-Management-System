@@ -11,6 +11,8 @@ router.post("", BillController.createBill);
 
 router.put("/:id", BillController.updateBill);
 
+router.put("/city/:id", BillController.updateBillCity);
+
 router.get("", BillController.getBills);
 
 router.get("/:id", BillController.getBill);

@@ -32,11 +32,18 @@
         type="button"
         mat-raised-button
         (click)="onBillRecieved()"
+        *ngIf="!bill.routeCovered[indexOfRoute].recieved"
       >
         Bill Recieved
       </button>
       <div style="text-align: center;">
-        <button mat-button type="button" mat-raised-button (click)="onupdate()">
+        <button
+          mat-button
+          color="primary"
+          type="button"
+          mat-raised-button
+          (click)="onupdate()"
+        >
           Update
         </button>
       </div>

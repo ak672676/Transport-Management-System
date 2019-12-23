@@ -6,19 +6,26 @@ import { Subscription } from "rxjs";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "TMS";
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   constructor(private authService: ManagersService) {}
 
   ngOnInit() {
+    this.authService.autoAuthUser();
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
-        //console.log("Loggin->", this.authService.isAdmin);
+        console.log("Loggin->", isAuthenticated);
       });
+    console.log("----------------------->");
+    console.log("----------------------->");
+    console.log(this.userIsAuthenticated);
+    console.log("----------------------->");
+    console.log("----------------------->");
   }
 
   ngOnDestroy() {

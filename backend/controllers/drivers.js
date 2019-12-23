@@ -4,6 +4,7 @@ exports.createDriver = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   console.log("--->" + req.body.name);
   const driver = new Driver({
+    driverId: null,
     name: req.body.name,
     sex: req.body.sex,
     phone: req.body.phone,
@@ -20,7 +21,8 @@ exports.createDriver = (req, res, next) => {
       message: "Driver added successfully",
       driver: {
         ...createdDriver,
-        id: createdDriver._id
+        id: createdDriver._id,
+        driverId: createdDriver.driverId
       }
     });
   });
@@ -34,6 +36,7 @@ exports.updateDriver = (req, res, next) => {
   }
   const driver = new Driver({
     _id: req.body.id,
+    driverId: req.body.driverId,
     name: req.body.name,
     sex: req.body.sex,
     phone: req.body.phone,
@@ -66,6 +69,7 @@ exports.getDrivers = (req, res, next) => {
       message: "Cities fetched successfully",
       drivers: documents
     });
+    console.log(documents);
   });
 };
 

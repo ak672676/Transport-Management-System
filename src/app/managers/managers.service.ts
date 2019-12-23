@@ -17,6 +17,7 @@ export class ManagersService {
   private isAuthenticated = false;
   private token: string;
   private tokenTimer: any;
+  // private tokenTimer: NodeJS.Timer;
   private userId: string;
   public city: string;
   private isAdmin: string;
@@ -105,6 +106,7 @@ export class ManagersService {
       this.managerName = authInformation.managerName;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+      console.log("111111111111111111");
     }
   }
 
@@ -160,7 +162,7 @@ export class ManagersService {
     const city = localStorage.getItem("city");
     const managerName = localStorage.getItem("managerName");
     const isAdmin = localStorage.getItem("isAdmin");
-    if (!token && !expirationDate) {
+    if (!token || !expirationDate) {
       return;
     }
     return {

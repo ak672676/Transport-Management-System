@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const driverSchema = mongoose.Schema({
+  driverId: { type: Number },
   name: { type: String, required: true },
   sex: { type: String, required: true },
   phone: { type: String, required: true },
@@ -11,4 +13,5 @@ const driverSchema = mongoose.Schema({
   imagePath: { type: String, required: true }
 });
 
+driverSchema.plugin(AutoIncrement, { inc_field: "driverId" });
 module.exports = mongoose.model("Driver", driverSchema);

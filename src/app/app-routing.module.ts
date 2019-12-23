@@ -17,32 +17,98 @@ import { BillListComponent } from "./bills/bill-list/bill-list.component";
 import { TruckListComponent } from "./truck/truck-list/truck-list.component";
 import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.component";
 import { BillUpdateComponent } from "./bills/bill-update/bill-update.component";
+import { AuthGuard } from "./managers/auth.guard";
 
 const routes: Routes = [
-  { path: "city", component: CityListComponent },
-  { path: "city/create", component: CityCreateComponent },
-  { path: "city/edit/:cityId", component: CityCreateComponent },
-  { path: "manager", component: ManagerListComponent },
-  { path: "manager/create", component: ManagerCreateComponent },
-  { path: "manager/edit/:managerId", component: ManagerCreateComponent },
-  { path: "driver", component: DriverListComponent },
-  { path: "driver/create", component: DriverCreateComponent },
-  { path: "driver/edit/:driverId", component: DriverCreateComponent },
+  { path: "city", component: CityListComponent, canActivate: [AuthGuard] },
+  {
+    path: "city/create",
+    component: CityCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "city/edit/:cityId",
+    component: CityCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "manager",
+    component: ManagerListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "manager/create",
+    component: ManagerCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "manager/edit/:managerId",
+    component: ManagerCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: "driver", component: DriverListComponent, canActivate: [AuthGuard] },
+  {
+    path: "driver/create",
+    component: DriverCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "driver/edit/:driverId",
+    component: DriverCreateComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "login", component: ManagerLoginComponent },
-  { path: "customer/create", component: CustomerCreateComponent },
-  { path: "customer/edit/:customerId", component: CustomerCreateComponent },
-  { path: "customer", component: CustomerListComponent },
-  { path: "customer/search", component: CustomerSearchListComponent },
-  { path: "bill/create", component: BillCreateComponent },
-  { path: "bill", component: BillListComponent },
-  { path: "truck/create", component: TruckCreateComponent },
-  { path: "truck", component: TruckListComponent },
-  { path: "truck/edit/:truckId", component: TruckCreateComponent },
-  { path: "city/billlist", component: CityBillListComponent },
-  { path: "bill/update/:billId", component: BillUpdateComponent }
+  {
+    path: "customer/create",
+    component: CustomerCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "customer/edit/:customerId",
+    component: CustomerCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "customer",
+    component: CustomerListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "customer/search",
+    component: CustomerSearchListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "bill/create",
+    component: BillCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: "bill", component: BillListComponent, canActivate: [AuthGuard] },
+  {
+    path: "truck/create",
+    component: TruckCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: "truck", component: TruckListComponent, canActivate: [AuthGuard] },
+  {
+    path: "truck/edit/:truckId",
+    component: TruckCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "city/billlist",
+    component: CityBillListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "bill/update/:billId",
+    component: BillUpdateComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}

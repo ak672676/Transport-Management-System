@@ -254,4 +254,83 @@ export class BillsService {
         this.router.navigate(["/"]);
       });
   }
+  onUpdateBillAndCity(
+    id: string,
+    billId: number,
+    customerUniqueId: string,
+    customerId: string,
+    customerName: string,
+    street: string,
+    city: string,
+    state: string,
+    country: string,
+    pin: string,
+    phone: string,
+    email: string,
+    gstNo: string,
+    recieverUniqueId: string,
+    r_customerId: string,
+    r_customerName: string,
+    r_street: string,
+    r_city: string,
+    r_state: string,
+    r_country: string,
+    r_pin: string,
+    r_phone: string,
+    r_email: string,
+    r_gstNo: string,
+    bookingDate: string,
+    bookingStatus: string,
+    routeCovered: [
+      {
+        city: string;
+        time: string;
+        date: string;
+        recieved: boolean;
+        d_city: string;
+        d_time: string;
+        d_date: string;
+        dispached: boolean;
+      }
+    ],
+    items: [{ description: string; numberOfPackage: string; cost: string }],
+    cityToUpdate: string
+  ) {
+    const bill: Bill = {
+      id: id,
+      billId: billId,
+      customerUniqueId: customerUniqueId,
+      customerId: customerId,
+      customerName: customerName,
+      street: street,
+      city: city,
+      state: state,
+      country: country,
+      pin: pin,
+      phone: phone,
+      email: email,
+      gstNo: gstNo,
+      recieverUniqueId: recieverUniqueId,
+      r_customerId: r_customerId,
+      r_customerName: r_customerName,
+      r_street: r_street,
+      r_city: r_city,
+      r_state: r_state,
+      r_country: r_country,
+      r_pin: r_pin,
+      r_phone: r_phone,
+      r_email: r_email,
+      r_gstNo: r_gstNo,
+      bookingDate: bookingDate,
+      bookingStatus: bookingStatus,
+      routeCovered: routeCovered,
+      items: items
+    };
+    this.http
+      .put("http://localhost:3000/api/bills/city/" + id, { bill, cityToUpdate })
+      .subscribe(response => {
+        console.log(response);
+        this.router.navigate(["/"]);
+      });
+  }
 }

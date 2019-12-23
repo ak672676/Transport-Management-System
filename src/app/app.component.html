@@ -3,7 +3,9 @@
 <!-- <sidebar></sidebar> -->
 <main class="content">
   <div class="row" style="width: 100%;height: 100vh;">
-    <diV class="col-lg-2 sidebar-not-auth" *ngIf="!userIsAuthenticated"> </diV>
+    <diV class="col-lg-2 sidebar-not-auth" *ngIf="!userIsAuthenticated"
+      >aaa
+    </diV>
     <div class="col-lg-2 sidebar" *ngIf="userIsAuthenticated">
       <mat-list role="list">
         <mat-list-item role="listitem"
@@ -13,6 +15,7 @@
             routerLinkActive="mat-accent"
             [routerLinkActiveOptions]="{ exact: true }"
             style="width: 100%;"
+            ><i class="glyphicon glyphicon-home" style="margin-top:-8px;"></i
             >Home</a
           ></mat-list-item
         >

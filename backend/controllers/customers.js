@@ -21,7 +21,8 @@ exports.createCustomer = (req, res, next) => {
       message: "Customer added Successfuly",
       customer: {
         ...createdCustomer,
-        id: createdCustomer._id
+        id: createdCustomer._id,
+        customerId: createdCustomer.customerId
       }
     });
   });

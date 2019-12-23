@@ -30,6 +30,7 @@ export class DriverListComponent implements OnInit, OnDestroy {
       .subscribe((drivers: Driver[]) => {
         this.isLoading = false;
         this.drivers = drivers;
+        console.log(drivers);
       });
   }
 

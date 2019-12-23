@@ -23,6 +23,7 @@ export class DriversService {
         map(driverData => {
           return driverData.drivers.map(driver => {
             return {
+              driverId: driver.driverId,
               name: driver.name,
               sex: driver.sex,
               phone: driver.phone,
@@ -50,6 +51,7 @@ export class DriversService {
     //return { ...this.posts.find(p => p.id === id) };
     return this.http.get<{
       _id: string;
+      driverId: string;
       name: string;
       sex: string;
       phone: string;
@@ -89,6 +91,7 @@ export class DriversService {
       .subscribe(responseData => {
         const driver: Driver = {
           id: responseData.driver.id,
+          driverId: responseData.driver.driverId,
           name: name,
           sex: sex,
           phone: phone,
@@ -106,6 +109,7 @@ export class DriversService {
 
   updateDriver(
     id: string,
+    driverId: string,
     name: string,
     sex: string,
     phone: string,
@@ -130,6 +134,7 @@ export class DriversService {
     if (typeof image === "object") {
       driverData = new FormData();
       driverData.append("id", id);
+      driverData.append("driverId", driverId);
       driverData.append("name", name);
       driverData.append("sex", sex);
       driverData.append("phone", phone);
@@ -141,6 +146,7 @@ export class DriversService {
     } else {
       driverData = {
         id: id,
+        driverId: driverId,
         name: name,
         sex: sex,
         phone: phone,
@@ -158,6 +164,7 @@ export class DriversService {
         const oldDriverIndex = updatedDrivers.findIndex(d => d.id === id);
         const driver: Driver = {
           id: id,
+          driverId: driverId,
           name: name,
           sex: sex,
           phone: phone,

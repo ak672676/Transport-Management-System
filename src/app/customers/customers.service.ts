@@ -112,7 +112,7 @@ export class CustomersService {
       .subscribe(responseData => {
         const customer: Customer = {
           id: responseData.customer.id,
-          customerId: customerId,
+          customerId: responseData.customer.customerId,
           customerName: customerName,
           street: street,
           city: city,

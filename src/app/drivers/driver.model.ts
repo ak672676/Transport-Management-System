@@ -1,5 +1,6 @@
 export interface Driver {
   id: string;
+  driverId: string;
   name: string;
   sex: string;
   phone: string;

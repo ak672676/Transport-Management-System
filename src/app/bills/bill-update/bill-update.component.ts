@@ -80,11 +80,14 @@ export class BillUpdateComponent {
             routeCovered: billData.routeCovered,
             items: billData.items
           };
+          console.log("pppppppppppppppppppppp");
+          console.log(this.bill);
           for (let i = 0; i < this.bill.routeCovered.length; i++) {
             if (
               this.bill.routeCovered[i].city === localStorage.getItem("city")
             ) {
               this.indexOfRoute = i;
+              console.log("pppppppppppppppppppppp");
               break;
             }
           }
@@ -131,7 +134,52 @@ export class BillUpdateComponent {
     this.bill.routeCovered[this.indexOfRoute].d_date = this.form.value.d_date;
     this.bill.routeCovered[this.indexOfRoute].d_city = this.form.value.d_city;
     this.bill.routeCovered[this.indexOfRoute].dispached = true;
+    let a = {
+      city: this.form.value.d_city,
+      time: this.form.value.time,
+      date: this.form.value.date,
+      recieved: false,
+      d_city: null,
+      d_date: null,
+      d_time: null,
+      dispached: null
+    };
+    this.bill.routeCovered.push(a);
+
     console.log("On Update---->", this.bill.routeCovered[this.indexOfRoute]);
+
+    //////////////////////////
+    this.billsService.onUpdateBillAndCity(
+      this.bill.id,
+      this.bill.billId,
+      this.bill.customerUniqueId,
+      this.bill.customerId,
+      this.bill.customerName,
+      this.bill.street,
+      this.bill.city,
+      this.bill.state,
+      this.bill.country,
+      this.bill.pin,
+      this.bill.phone,
+      this.bill.email,
+      this.bill.gstNo,
+      this.bill.recieverUniqueId,
+      this.bill.r_customerId,
+      this.bill.r_customerName,
+      this.bill.r_street,
+      this.bill.r_city,
+      this.bill.r_state,
+      this.bill.r_country,
+      this.bill.r_pin,
+      this.bill.r_phone,
+      this.bill.r_email,
+      this.bill.r_gstNo,
+      this.bill.bookingDate,
+      this.bill.bookingStatus,
+      this.bill.routeCovered,
+      this.bill.items,
+      this.form.value.d_city
+    );
   }
 
   onBillRecieved() {

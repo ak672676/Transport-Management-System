@@ -63,6 +63,7 @@ export class DriverCreateComponent implements OnInit {
           this.isLoading = false;
           this.driver = {
             id: driverData._id,
+            driverId: driverData.driverId,
             name: driverData.name,
             sex: driverData.sex,
             phone: driverData.phone,
@@ -120,6 +121,7 @@ export class DriverCreateComponent implements OnInit {
     } else {
       this.driversService.updateDriver(
         this.driverId,
+        this.driver.driverId,
         this.form.value.name,
         this.form.value.sex,
         this.form.value.phone,
