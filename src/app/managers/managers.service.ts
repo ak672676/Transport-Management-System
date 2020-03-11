@@ -20,7 +20,7 @@ export class ManagersService {
   // private tokenTimer: NodeJS.Timer;
   private userId: string;
   public city: string;
-  private isAdmin: string;
+  public isAdmin: string;
   private managerName: string;
   private authStatusListener = new Subject<boolean>();
 

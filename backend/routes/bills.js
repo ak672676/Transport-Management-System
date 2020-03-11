@@ -17,4 +17,5 @@ router.get("", BillController.getBills);
 
 router.get("/:id", BillController.getBill);
 
+router.get("/search/:billId", BillController.getSearchBill);
 module.exports = router;

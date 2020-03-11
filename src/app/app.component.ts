@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = "TMS";
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
-  constructor(private authService: ManagersService) {}
+  constructor(public authService: ManagersService) {}
 
   ngOnInit() {
     this.authService.autoAuthUser();

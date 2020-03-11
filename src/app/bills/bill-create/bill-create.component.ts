@@ -40,6 +40,7 @@ export class BillCreateComponent {
     private router: Router,
     private customersService: CustomersService
   ) {}
+
   ngOnInit() {
     this.billForm = this.formBuilder.group({
       billId: new FormControl({ value: null, disabled: true }),
@@ -102,7 +103,8 @@ export class BillCreateComponent {
         validators: [Validators.required]
       }),
       routeCovered: this.formBuilder.array([this.updateCity()]),
-      items: this.formBuilder.array([this.addItem()])
+      items: this.formBuilder.array([this.addItem()]),
+      total: new FormControl(0)
     });
 
     // (<FormArray>this.billForm.get("items")).controls[0]
@@ -140,7 +142,7 @@ export class BillCreateComponent {
       numberOfPackage: new FormControl(null, {
         validators: [Validators.required]
       }),
-      cost: new FormControl(null, {
+      cost: new FormControl(0, {
         validators: [Validators.required]
       })
     });
@@ -171,6 +173,7 @@ export class BillCreateComponent {
       this.recieverUniqueId
     );
     console.log("on bill save");
+    console.log(this.billForm.get("total"));
     console.log(this.billForm.value);
     this.billForm.reset();
   }
@@ -274,6 +277,20 @@ export class BillCreateComponent {
       .get("date")
       .setValue(date);
   }
+
+  ngDoCheck() {
+    var numberOfItems = (<FormArray>this.billForm.get("items")).length;
+    let total = 0;
+    for (let i = 0; i < numberOfItems; i++) {
+      total =
+        total +
+        Number(
+          (<FormArray>this.billForm.get("items")).controls[i].get("cost").value
+        );
+    }
+    this.billForm.get("total").setValue(total);
+  }
+
   OnDestroy() {
     this.customersService.forDelEditOption = true;
   }

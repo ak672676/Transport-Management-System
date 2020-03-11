@@ -2,172 +2,185 @@
 <!-- <app-manager-login></app-manager-login> -->
 <!-- <sidebar></sidebar> -->
 <main class="content">
-  <div class="row" style="width: 100%;height: 100vh;">
-    <diV class="col-lg-2 sidebar-not-auth" *ngIf="!userIsAuthenticated"
-      >aaa
-    </diV>
-    <div class="col-lg-2 sidebar" *ngIf="userIsAuthenticated">
-      <mat-list role="list">
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            ><i class="glyphicon glyphicon-home" style="margin-top:-8px;"></i
-            >Home</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/city/billlist"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Pending Bills</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/city"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >City List</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/city/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Create City</a
-          ></mat-list-item
-        >
+  <div class="conatiner-fluid main-content">
+    <div class="row" style="width: 100%;height: 100vh;">
+      <div class="col-lg-2 sidebar" *ngIf="userIsAuthenticated">
+        <mat-list role="list">
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              ><i class="glyphicon glyphicon-home" style="margin-top:-8px;"></i
+              >Home</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/city/billlist"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Pending Bills</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/city"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >City List</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem" *ngIf="authService.isAdmin == 'true'"
+            ><a
+              mat-button
+              routerLink="/city/create"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Create City</a
+            ></mat-list-item
+          >
 
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/manager/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Manager Create</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/manager"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Manager List</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/driver"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Driver List</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/driver/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >New Driver</a
-          ></mat-list-item
-        >
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/truck/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >New Truck</a
-          ></mat-list-item
-        >
-        <!-- <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/driver/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >New Driver</a
-          ></mat-list-item
-        > -->
+          <mat-list-item role="listitem" *ngIf="authService.isAdmin == 'true'"
+            ><a
+              mat-button
+              routerLink="/manager/create"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Manager Create</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/manager"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Manager List</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/driver"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Driver List</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem" *ngIf="authService.isAdmin == 'true'"
+            ><a
+              mat-button
+              routerLink="/driver/create"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >New Driver</a
+            ></mat-list-item
+          >
+          <mat-list-item role="listitem" *ngIf="authService.isAdmin == 'true'"
+            ><a
+              mat-button
+              routerLink="/truck/create"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >New Truck</a
+            ></mat-list-item
+          >
+          <!-- <mat-list-item role="listitem"
+        ><a
+          mat-button
+          routerLink="/driver/create"
+          routerLinkActive="mat-accent"
+          [routerLinkActiveOptions]="{ exact: true }"
+          style="width: 100%;"
+          >New Driver</a
+        ></mat-list-item
+      > -->
 
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/customer"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Customer List</a
-          ></mat-list-item
-        >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/customer"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Customer List</a
+            ></mat-list-item
+          >
 
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/customer/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >New Customer</a
-          ></mat-list-item
-        >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/customer/create"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >New Customer</a
+            ></mat-list-item
+          >
 
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/customer/search"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Search Customer</a
-          ></mat-list-item
-        >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/customer/search"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Search Customer</a
+            ></mat-list-item
+          >
 
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/bill/create"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >New Bill</a
-          ></mat-list-item
-        >
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/bill/create"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >New Bill</a
+            ></mat-list-item
+          >
 
-        <mat-list-item role="listitem"
-          ><a
-            mat-button
-            routerLink="/bill"
-            routerLinkActive="mat-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            style="width: 100%;"
-            >Bill List</a
-          ></mat-list-item
-        >
-      </mat-list>
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/bill"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Bill List</a
+            ></mat-list-item
+          >
+
+          <mat-list-item role="listitem"
+            ><a
+              mat-button
+              routerLink="/bill/status"
+              routerLinkActive="mat-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              style="width: 100%;"
+              >Bill Status</a
+            ></mat-list-item
+          >
+        </mat-list>
+      </div>
+      <!-- <div *ngIf="!userIsAuthenticated">
+        <img src="../../assets/TMS.png" alt="Flowers in Chania" />
+      </div> -->
+      <div class="col-lg-10"><router-outlet></router-outlet></div>
     </div>
-    <div class="col-lg-10 main-content"><router-outlet></router-outlet></div>
   </div>
 </main>
 <app-footer></app-footer>

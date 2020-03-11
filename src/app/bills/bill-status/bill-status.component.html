@@ -1,0 +1,30 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div style="text-align: center;">
+  <form>
+    <mat-form-field style="width:500px !important">
+      <input
+        matInput
+        [value]=""
+        (input)="onSearch($event.target.value)"
+        placeholder="Search Bill"
+      />
+    </mat-form-field>
+  </form>
+</div>
+<p>{{ searchingBillId }}</p>
+<mat-accordion multi="true" *ngIf="bills.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let bill of bills">
+    <mat-expansion-panel-header>
+      {{ bill.billId }}
+    </mat-expansion-panel-header>
+    <p><b>Sender Name</b> {{ bill.customerName }}</p>
+    <p><b>Sender City</b> {{ bill.city }}</p>
+    <hr />
+    <p><b>Reciever Name</b> {{ bill.r_customerName }}</p>
+    <p><b>Reciever City</b> {{ bill.r_city }}</p>
+    <pre> {{ bill.routeCovered | json }} </pre>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="bills.length <= 0 && !isLoading">
+  No Bill added yet
+</p>

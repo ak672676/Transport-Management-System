@@ -22,5 +22,5 @@ input[type="file"] {
   width: 50%;
   border: 3px solid blueviolet;
   padding: 10px;
-  background-color: transparent;
+  background-color: white;
 }

@@ -60,7 +60,8 @@ export class BillsService {
 
             routeCovered: billForServer.routeCovered,
 
-            items: billForServer.items
+            items: billForServer.items,
+            total: billForServer.total
           };
           // console.log("//////////////////////////");
           // console.log(bill);
@@ -115,7 +116,8 @@ export class BillsService {
               bookingDate: bill.bookingDate,
               bookingStatus: bill.bookingStatus,
               routeCovered: bill.routeCovered,
-              items: bill.items
+              items: bill.items,
+              total: bill.total
             };
           });
         })
@@ -173,6 +175,7 @@ export class BillsService {
         }
       ];
       items: [{ description: string; numberOfPackage: string; cost: string }];
+      total: number;
     }>("http://localhost:3000/api/bills/" + id);
   }
 
@@ -215,7 +218,8 @@ export class BillsService {
         dispached: boolean;
       }
     ],
-    items: [{ description: string; numberOfPackage: string; cost: string }]
+    items: [{ description: string; numberOfPackage: string; cost: string }],
+    total: number
   ) {
     const bill: Bill = {
       id: id,
@@ -245,7 +249,8 @@ export class BillsService {
       bookingDate: bookingDate,
       bookingStatus: bookingStatus,
       routeCovered: routeCovered,
-      items: items
+      items: items,
+      total: total
     };
     this.http
       .put("http://localhost:3000/api/bills/" + id, bill)
@@ -294,7 +299,9 @@ export class BillsService {
       }
     ],
     items: [{ description: string; numberOfPackage: string; cost: string }],
-    cityToUpdate: string
+    total: number,
+    cityToUpdate: string,
+    cityToRemoveBill: string
   ) {
     const bill: Bill = {
       id: id,
@@ -324,13 +331,74 @@ export class BillsService {
       bookingDate: bookingDate,
       bookingStatus: bookingStatus,
       routeCovered: routeCovered,
-      items: items
+      items: items,
+      total: total
     };
     this.http
-      .put("http://localhost:3000/api/bills/city/" + id, { bill, cityToUpdate })
+      .put("http://localhost:3000/api/bills/city/" + id, {
+        bill,
+        cityToUpdate,
+        cityToRemoveBill
+      })
       .subscribe(response => {
         console.log(response);
         this.router.navigate(["/"]);
+      });
+  }
+
+  getSearchBills(billId: string) {
+    console.log("DATA");
+    console.log(billId);
+    this.http
+      .get<{ message: string; bills: any }>(
+        "http://localhost:3000/api/bills/search/" + billId
+      )
+      .pipe(
+        map(billData => {
+          //console.log(customerData);
+          return billData.bills.map(bill => {
+            // console.log("Customer=>");
+            // console.log(customer);
+            return {
+              id: bill._id,
+              billId: bill.billId,
+              customerUniqueId: bill.customerUniqueId,
+              customerName: bill.customerName,
+              customerId: bill.customerId,
+              street: bill.street,
+              city: bill.city,
+              state: bill.state,
+              country: bill.country,
+              pin: bill.pin,
+              phone: bill.phone,
+              email: bill.email,
+              gstNo: bill.gstNo,
+
+              recieverUniqueId: bill.recieverUniqueId,
+              r_customerName: bill.r_customerName,
+              r_customerId: bill.r_customerId,
+              r_street: bill.r_street,
+              r_city: bill.r_city,
+              r_state: bill.r_state,
+              r_country: bill.r_country,
+              r_pin: bill.r_pin,
+              r_phone: bill.r_phone,
+              r_email: bill.r_email,
+              r_gstNo: bill.r_gstNo,
+              bookingDate: bill.bookingDate,
+              bookingStatus: bill.bookingStatus,
+              routeCovered: bill.routeCovered,
+              items: bill.items,
+              total: bill.total
+            };
+          });
+        })
+      )
+      .subscribe(transformedBills => {
+        //console.log("-----------");
+        //console.log(transformedCustomers);
+        this.bills = transformedBills;
+        this.billsUpdated.next([...this.bills]);
       });
   }
 }

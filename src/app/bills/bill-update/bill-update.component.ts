@@ -78,7 +78,8 @@ export class BillUpdateComponent {
             bookingDate: billData.bookingDate,
             bookingStatus: billData.bookingStatus,
             routeCovered: billData.routeCovered,
-            items: billData.items
+            items: billData.items,
+            total: billData.total
           };
           console.log("pppppppppppppppppppppp");
           console.log(this.bill);
@@ -178,7 +179,9 @@ export class BillUpdateComponent {
       this.bill.bookingStatus,
       this.bill.routeCovered,
       this.bill.items,
-      this.form.value.d_city
+      this.bill.total,
+      this.form.value.d_city,
+      localStorage.getItem("city")
     );
   }
 
@@ -216,7 +219,8 @@ export class BillUpdateComponent {
       this.bill.bookingDate,
       this.bill.bookingStatus,
       this.bill.routeCovered,
-      this.bill.items
+      this.bill.items,
+      this.bill.total
     );
   }
 }

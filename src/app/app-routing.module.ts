@@ -18,6 +18,7 @@ import { TruckListComponent } from "./truck/truck-list/truck-list.component";
 import { CityBillListComponent } from "./cities/city-bills-list/city-bills-list.component";
 import { BillUpdateComponent } from "./bills/bill-update/bill-update.component";
 import { AuthGuard } from "./managers/auth.guard";
+import { BillStatusComponent } from "./bills/bill-status/bill-status.component";
 
 const routes: Routes = [
   { path: "city", component: CityListComponent, canActivate: [AuthGuard] },
@@ -104,6 +105,10 @@ const routes: Routes = [
     path: "bill/update/:billId",
     component: BillUpdateComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: "bill/status",
+    component: BillStatusComponent
   }
 ];
 @NgModule({

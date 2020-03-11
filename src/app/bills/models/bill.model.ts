@@ -41,4 +41,5 @@ export interface Bill {
     }
   ];
   items: [{ description: string; numberOfPackage: string; cost: string }];
+  total: number;
 }

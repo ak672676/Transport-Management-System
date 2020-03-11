@@ -1,5 +1,20 @@
+const nodemailer = require("nodemailer");
+
 const Bill = require("../models/bill");
 const City = require("../models/city");
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  secure: false, //true
+  port: 465, //25
+  auth: {
+    user: "tms796677@gmail.com",
+    pass: "Tmsamit123@"
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
 exports.createBill = (req, res, next) => {
   // const url = req.protocol + "://" + req.get("host");
@@ -30,7 +45,8 @@ exports.createBill = (req, res, next) => {
     bookingDate: req.body.bookingDate,
     bookingStatus: req.body.bookingStatus,
     routeCovered: req.body.routeCovered.splice(0, req.body.routeCovered.length),
-    items: req.body.items.splice(0, req.body.items.length)
+    items: req.body.items.splice(0, req.body.items.length),
+    total: req.body.total
   });
   //console.log(req.body.items.splice(0, req.body.items.length));
   // console.log("_____________________________");
@@ -59,6 +75,20 @@ exports.createBill = (req, res, next) => {
         City.updateOne({ _id: city._id }, city)
           .then(result => {
             if (result.n > 0) {
+              var mailOptions = {
+                from: "tms796677@gmail.com",
+                to: "akumar672676@gmail.com",
+                subject: "Billing TMS",
+                text: `Hii.. ${bill.customerName} your bill amount is ${bill.total}`
+              };
+              transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Email sent: " + info.response);
+                }
+              });
+
               res.status(201).json({
                 message: "Bill added Successfuly",
                 bill: {
@@ -69,6 +99,7 @@ exports.createBill = (req, res, next) => {
                   billId: createdBill.billId
                 }
               });
+
               console.log("FROM BACEND UPDATES THE BACKEND");
             } else {
               res.status(401).json({ message: "Not Authorized" });
@@ -76,7 +107,7 @@ exports.createBill = (req, res, next) => {
           })
           .catch(error => {
             res.status(500).json({
-              message: "Couldn't update the post"
+              message: "Couldn't update the bill"
             });
           });
       }
@@ -147,7 +178,8 @@ exports.updateBill = (req, res, next) => {
     bookingDate: req.body.bookingDate,
     bookingStatus: req.body.bookingStatus,
     routeCovered: req.body.routeCovered.splice(0, req.body.routeCovered.length),
-    items: req.body.items.splice(0, req.body.items.length)
+    items: req.body.items.splice(0, req.body.items.length),
+    total: req.body.total
   });
 
   Bill.updateOne({ _id: req.params.id }, bill)
@@ -202,21 +234,41 @@ exports.updateBillCity = (req, res, next) => {
       0,
       req.body.bill.routeCovered.length
     ),
-    items: req.body.bill.items.splice(0, req.body.bill.items.length)
+    items: req.body.bill.items.splice(0, req.body.bill.items.length),
+    total: req.body.total
   });
 
   Bill.updateOne({ _id: req.body.bill.id }, bill).then(createdBill => {
-    console.log(createdBill);
-    console.log("================================");
     City.findOne({ cityName: req.body.cityToUpdate }).then(city => {
       if (city) {
-        console.log("This is the city to Fill the BillId", city);
-
         city.billsForTheCity.push({
           id: req.body.bill.id,
           billId: req.body.bill.billId
         });
-        console.log("------------------>", city.billsForTheCity, "---->");
+        City.findOne({ cityName: req.body.cityToRemoveBill }).then(
+          cityBillRemove => {
+            if (cityBillRemove) {
+              let k = null;
+              for (let i = 0; i < cityBillRemove.billsForTheCity.length; i++) {
+                if (cityBillRemove.billsForTheCity[i].id === req.body.bill.id) {
+                  k = i;
+                  break;
+                }
+              }
+              if (k != null) {
+                let removedBill = cityBillRemove.billsForTheCity.splice(k, 1);
+                City.updateOne(
+                  { _id: cityBillRemove._id },
+                  cityBillRemove
+                ).then(result => {
+                  if (result.n > 0) {
+                    console.log("Successfully Changed the Bill and City");
+                  }
+                });
+              }
+            }
+          }
+        );
         City.updateOne({ _id: city._id }, city)
           .then(result => {
             if (result.n > 0) {
@@ -293,3 +345,21 @@ exports.updateBillCity = (req, res, next) => {
 //     });
 //   });
 // };
+exports.getSearchBill = (req, res, next) => {
+  // console.log("GETTING DATA");
+  //Customer.find({ phone: { $regex: /req.params.phone/ } })
+  console.log("-->", req.params.billId);
+  Bill.find({ billId: req.params.billId })
+    .then(document => {
+      res.status(200).json({
+        message: "Bill fetched Successfully",
+        bills: document
+      });
+      console.log(document);
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Could not fetch the bill"
+      });
+    });
+};

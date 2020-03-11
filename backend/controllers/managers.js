@@ -1,7 +1,17 @@
+require("dotenv").config();
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const nodemailer = require("nodemailer");
 const Manager = require("../models/manager");
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "tms796677@gmail.com",
+    pass: "Tmsamit123@"
+  }
+});
 
 // exports.createManager = (req, res, next) => {
 //   const url = req.protocol + "://" + req.get("host");
@@ -216,6 +226,24 @@ exports.loginManager = (req, res, next) => {
       console.log(token);
       console.log("LOGIN IN BACKEND");
       console.log("Backend Manager-->", fetchedManager);
+
+      var mailOptions = {
+        from: "tms796677@gmail.com",
+        to: "akumar672676@gmail.com",
+        subject: "Login Alert",
+        text: `${fetchedManager.name} you are logged in using ${fetchedManager.email}`
+        //html: "<h1>AMIT</h1>"
+      };
+
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log("EMAIL PROBLEM");
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+
       res.status(200).json({
         token: token,
         expiresIn: 3600,

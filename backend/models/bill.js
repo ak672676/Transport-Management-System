@@ -38,7 +38,8 @@ const billSchema = mongoose.Schema({
       dispached: Boolean
     }
   ],
-  items: [{ description: String, numberOfPackage: String, cost: String }]
+  items: [{ description: String, numberOfPackage: String, cost: String }],
+  total: Number
 });
 
 billSchema.plugin(AutoIncrement, { inc_field: "billId" });
