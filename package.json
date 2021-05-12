@@ -29,7 +29,7 @@
     "mongoose-sequence": "^5.2.2",
     "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
